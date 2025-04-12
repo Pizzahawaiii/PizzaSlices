@@ -1,0 +1,17 @@
+<Bindings>
+	<Binding name="PIZZASLICES_RING1" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(1)</Binding>
+	<Binding name="PIZZASLICES_RING2" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(2)</Binding>
+	<Binding name="PIZZASLICES_RING3" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(3)</Binding>
+	<Binding name="PIZZASLICES_RING4" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(4)</Binding>
+	<Binding name="PIZZASLICES_RING5" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(5)</Binding>
+	<Binding name="PIZZASLICES_RING6" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(6)</Binding>
+	<Binding name="PIZZASLICES_RING7" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(7)</Binding>
+	<Binding name="PIZZASLICES_RING8" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(8)</Binding>
+	<Binding name="PIZZASLICES_RING9" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(9)</Binding>
+	<Binding name="PIZZASLICES_RING10" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(10)</Binding>
+	<Binding name="PIZZASLICES_RING11" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(11)</Binding>
+	<Binding name="PIZZASLICES_RING12" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(12)</Binding>
+	<Binding name="PIZZASLICES_RING13" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(13)</Binding>
+	<Binding name="PIZZASLICES_RING14" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(14)</Binding>
+	<Binding name="PIZZASLICES_RING15" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(15)</Binding>
+</Bindings>
