@@ -503,14 +503,8 @@ PizzaSlices:RegisterModule('settings', function ()
   end
 
   function PS.settings.update()
-    if not PizzaSlices_rings then
-      PS:PrintError('Unable to update settings, no rings found!')
-      return
-    end
-
-    for _, frame in rings.list.frames do
-      frame:Hide()
-    end
+    if not PizzaSlices_rings then return end
+    for _, frame in rings.list.frames do frame:Hide() end
 
     for i, ring in PizzaSlices_rings do
       local idx = i

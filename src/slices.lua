@@ -66,13 +66,6 @@ PizzaSlices:RegisterModule('slices', function ()
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\clear',
         color = { r = .945, g = .890, b = .424 },
         action = 'raidmark:clear',
-        old = function()
-          for i = 1, 8, 1 do
-            if UnitExists('mark' .. i) then
-              SetRaidTarget('mark' .. i, 0)
-            end
-          end
-        end,
         noBorder = true,
       },
     }
