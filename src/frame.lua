@@ -6,8 +6,10 @@ PizzaSlices:RegisterModule('frame', function ()
   f.pointerAngle = nil
   f:SetPoint('CENTER', 0, 100)
   f:SetFrameStrata('FULLSCREEN')
-  f:SetWidth(1)
-  f:SetHeight(1)
+  f:SetFrameLevel(10)
+  f:SetWidth(400)
+  f:SetHeight(400)
+  f:EnableMouse(true)
   f:Hide()
 
   f.circle = CreateFrame('Frame', 'PizzaSlicesCircle', f)
@@ -15,18 +17,66 @@ PizzaSlices:RegisterModule('frame', function ()
   f.circle.tex = f.circle:CreateTexture('PizzaSlicesCircleTex', 'ARTWORK')
   f.circle.tex:SetAllPoints(f.circle)
   f.circle.tex:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\circle')
+  PS:Print("Circle frame created: " .. tostring(f.circle))
 
   f.circle.glow = CreateFrame('Frame', 'PizzaSlicesCircleGlow', f.circle)
   f.circle.glow:SetPoint('CENTER', 0, 0)
   f.circle.glow.tex = f.circle.glow:CreateTexture('PizzaSlicesCircleGlowTex', 'BACKGROUND')
   f.circle.glow.tex:SetAllPoints(f.circle.glow)
   f.circle.glow.tex:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\glow')
+  PS:Print("Glow frame created: " .. tostring(f.circle.glow))
 
   f.pointer = CreateFrame('Frame', 'PizzaSlicesPointer', f)
   f.pointer:SetPoint('CENTER', 0, 0)
   f.pointer.tex = f.pointer:CreateTexture('PizzaSlicesPointerTex', 'ARTWORK')
   f.pointer.tex:SetAllPoints(f.pointer)
   f.pointer.tex:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\pointer')
+
+  -- Create anchor frame
+  PS.anchorFrame = CreateFrame('Frame', 'PizzaSlicesAnchorFrame', UIParent)
+  if not PS.anchorFrame then
+    PS:PrintError("Failed to create anchor frame")
+    return
+  end
+  PS.anchorFrame:SetWidth(32)
+  PS.anchorFrame:SetHeight(32)
+  PS.anchorFrame:SetPoint('CENTER', C.anchorX or 0, C.anchorY or 100)
+  PS.anchorFrame:SetMovable(true)
+  PS.anchorFrame:EnableMouse(true)
+  PS.anchorFrame:RegisterForDrag('LeftButton')
+  PS.anchorFrame:SetFrameStrata('HIGH')
+  PS.anchorFrame:SetFrameLevel(10)
+  PS.anchorFrame.tex = PS.anchorFrame:CreateTexture('PizzaSlicesAnchorTex', 'ARTWORK')
+  PS.anchorFrame.tex:SetAllPoints(PS.anchorFrame)
+  PS.anchorFrame.tex:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\circle')
+  PS.anchorFrame.tex:SetVertexColor(0, 1, 0, 0.5)
+  PS.anchorFrame:SetScript('OnDragStart', function()
+    if PS.anchorFrame then
+      PS:Print("Anchor drag started")
+      PS.anchorFrame:StartMoving()
+    else
+      PS:PrintError("Anchor frame missing during drag start")
+    end
+  end)
+  PS.anchorFrame:SetScript('OnDragStop', function()
+    if PS.anchorFrame then
+      PS.anchorFrame:StopMovingOrSizing()
+      local x, y = PS.anchorFrame:GetCenter()
+      local scale = UIParent:GetEffectiveScale()
+      local parentWidth, parentHeight = UIParent:GetWidth(), UIParent:GetHeight()
+      PizzaSlices_config.anchorX = (x * scale - parentWidth * scale / 2) / scale
+      PizzaSlices_config.anchorY = (y * scale - parentHeight * scale / 2) / scale
+      PS:Print("Anchor drag stopped: x=" .. tostring(PizzaSlices_config.anchorX) .. ", y=" .. tostring(PizzaSlices_config.anchorY))
+    else
+      PS:PrintError("Anchor frame missing during drag stop")
+    end
+  end)
+  if C.toggleAnchor then
+    PS.anchorFrame:Show()
+  else
+    PS.anchorFrame:Hide()
+  end
+  PS:Print("Anchor frame created: " .. tostring(PS.anchorFrame))
 
   function PS.frame.open(ring)
     PS.ring = ring
@@ -39,34 +89,53 @@ PizzaSlices:RegisterModule('frame', function ()
     local scale = UIParent:GetEffectiveScale()
 
     if C.openAtCursor then
+      -- Use mouse cursor position
       local w = GetScreenWidth() * scale
       local h = GetScreenHeight() * scale
       local cursx, cursy = GetCursorPosition()
-      cx = (cursx - w / 2)
-      cy = (cursy - h / 2)
+      cx = (cursx - w / 2) / scale
+      cy = (cursy - h / 2) / scale
+    else
+      -- Use anchor position
+      cx = C.anchorX or 0
+      cy = C.anchorY or 100
     end
 
     PS.frame:ClearAllPoints()
-    PS.frame:SetPoint('CENTER', cx / scale, cy / scale)
+    PS.frame:SetPoint('CENTER', cx, cy)
+    PS:Print("Ring opening at: cx=" .. tostring(cx) .. ", cy=" .. tostring(cy) .. ", openAtCursor=" .. tostring(C.openAtCursor))
     PS.frame:SetAlpha(0)
+    if not PS.frame.circle then
+      PS:PrintError("Circle frame missing")
+      return
+    end
     PS.frame.circle:SetWidth(120 * sqrt(C.scale))
     PS.frame.circle:SetHeight(120 * sqrt(C.scale))
     PS.frame.circle:SetAlpha(0)
+    if not PS.frame.circle.glow then
+      PS:PrintError("Glow frame missing")
+      return
+    end
     PS.frame.circle.glow:SetWidth(240 * sqrt(C.scale))
     PS.frame.circle.glow:SetHeight(240 * sqrt(C.scale))
     PS.frame.circle.glow:SetAlpha(0)
-    PS.frame.pointer:SetWidth(400 * sqrt(C.scale))
+    if not PS.frame.pointer then
+      PS:PrintError("Pointer frame missing")
+      return
+    end
+    PS.frame.pointer:SetWidth(600 * sqrt(C.scale))
     PS.frame.pointer:SetHeight(400 * sqrt(C.scale))
     PS.frame.pointer:SetAlpha(0)
 
     local radius = 300 * sqrt(C.scale)
-    local angle = 90 -- 90 degress is 12 o'clock here
+    local angle = 90
     for idx, slice in ring.slices do
       local x, y, nextAngle = PS.utils.getSliceCoords(idx, PS.utils.length(ring.slices), angle, radius)
       local fname = 'PizzaSlicesButton' .. idx
       local f = _G[fname]
       if not f then
         f = CreateFrame('Button', 'PizzaSlicesButton' .. idx, PS.frame)
+        f:EnableMouse(true)
         table.insert(PS.frames, f)
       end
       f:ClearAllPoints()
@@ -113,7 +182,6 @@ PizzaSlices:RegisterModule('frame', function ()
       f.oglow:SetHeight(f:GetHeight() * 2)
       f.oglow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\oglow')
       f.oglow:SetAlpha(0)
-      -- f.oglow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
 
       if not f.iglow then
         f.iglow = f:CreateTexture(f:GetName() .. 'InnerGlow', 'OVERLAY')
@@ -124,6 +192,15 @@ PizzaSlices:RegisterModule('frame', function ()
       f.iglow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\iglow')
       f.iglow:SetAlpha(0)
       f.iglow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
+
+      local sliceIdx = idx
+      f:SetScript('OnClick', function(self, button)
+        PS:Print("Slice click: idx=" .. sliceIdx .. ", button=" .. tostring(button) .. ", triggerOnClick=" .. tostring(C.triggerOnClick) .. ", open=" .. tostring(PS.open))
+        if C.triggerOnClick and PS.open then
+          PS:SelectSlice(sliceIdx)
+          PS:TriggerOnClick(button or "LeftButton")
+        end
+      end)
 
       ring.slices[idx].frame = f
       ring.slices[idx].selected = false
@@ -344,7 +421,7 @@ PizzaSlices:RegisterModule('frame', function ()
     -- Fade stuff if needed
     local circx, circy = getCircleCenterCoords()
     local cursx, cursy = GetCursorPosition()
-    if PS.utils.distance(circx, circy, cursx, cursy) < 21 * sqrt(C.scale) then
+    if PS.utils.distance(circx, circy, cursx, cursy) < 85* sqrt(C.scale) then
       PS:SelectSlice(PS.ring.quickSelect)
 
       local r, g, b = 1, 1, 1
