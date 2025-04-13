@@ -135,36 +135,121 @@ local actions = {
   end,
 }
 
+
+
 function PS:TriggerSliceAction(idx)
-  if not idx or not PS.ring or not PS.ring.slices or not PS.ring.slices[idx] or not PS.ring.slices[idx].action then return end
+  if not idx or not PS.ring or not PS.ring.slices or not PS.ring.slices[idx] or not PS.ring.slices[idx].action then
+    return
+  end
   local slice = PS.ring.slices[idx]
   local actionType, actionValue = PS.utils.strSplit(slice.action, ':')
   local action = actions[actionType]
   if not action then
-    PS:PrintError('Unable to trigger slice action "' .. slice.action .. '". Action type has no handler!')
     return
   end
   action(actionValue, slice)
 end
 
-function PS:Open(ringIdx)
-  if not PizzaSlices_rings[ringIdx] then return end
+PS.lastToggleTime = 0
+PS.toggleCooldown = 0.5
+PS.holdState = false
+
+function PS:Open(ringIdx, keystate)
+  if not PizzaSlices_rings[ringIdx] then
+    return
+  end
 
   local ring = PS.utils.clone(PizzaSlices_rings[ringIdx])
   if not ring or PS.utils.length(ring.slices) == 0 then
     PS.open = false
     PS:Deselect()
+    if PS.frame then
+      PS.frame:Hide()
+    end
     return
   end
 
-  PS.open = keystate == 'down'
-  if PS.open then
-    PS.frame.open(ring)
-  elseif PS.selectedIdx then
-    PS:TriggerSliceAction(PS.selectedIdx)
-    PS:Deselect()
+
+  if not PS.frame then
+    return
+  end
+
+  if C.triggerOnClick then
+    local currentTime = GetTime()
+    if currentTime < PS.lastToggleTime + PS.toggleCooldown then return end
+    PS.open = not PS.open
+    PS.lastToggleTime = currentTime
+    if PS.open then
+      PS.frame.open(ring)
+      PS.frame:Show()
+    else
+      PS:Deselect()
+      PS.frame:Hide()
+    end
+  else
+    PS.holdState = not PS.holdState
+    if PS.holdState then
+      PS.open = true
+      PS.frame.open(ring)
+      PS.frame:Show()
+    else
+      if PS.selectedIdx then
+        PS:TriggerSliceAction(PS.selectedIdx)
+      end
+      PS:Deselect()
+      PS.open = false
+      PS.frame:Hide()
+    end
   end
 end
+
+function PS:TriggerOnClick(button)
+  if not PS.open then
+    return
+  end
+  if not PS.ring then
+    return
+  end
+  if not PS.selectedIdx then
+    return
+  end
+  if not PS.ring.slices or not PS.ring.slices[PS.selectedIdx] then
+    return
+  end
+  if button == "LeftButton" then
+    PS:TriggerSliceAction(PS.selectedIdx)
+    PS:Deselect()
+    PS.open = false
+    if PS.frame then
+      PS.frame:Hide()
+    end
+  else
+  end
+end
+
+PS:RegisterEvent('ADDON_LOADED')
+PS:SetScript('OnEvent', function ()
+  if event == 'ADDON_LOADED' and arg1 == PS.name then
+    PS:LoadConfig()
+
+    if PS.modules['frame'] then
+      PS:LoadModule('frame')
+    end
+
+    for _, moduleName in ipairs(PS.moduleNames) do
+      if moduleName ~= 'frame' then
+        PS:LoadModule(moduleName)
+      end
+    end
+
+    for _, moduleName in ipairs(PS.moduleNames) do
+      if PS[moduleName] and PS[moduleName].init then
+        PS[moduleName].init()
+      end
+    end
+  end
+end)
+
 
 PS:RegisterEvent('ADDON_LOADED')
 PS:SetScript('OnEvent', function ()

@@ -2,6 +2,7 @@ local defaultConfig = {
   scale = 1,
   openAtCursor = true,
   animationDuration = 1,
+  triggerOnClick = false, -- New setting for mouse click triggering
 }
 
 function PizzaSlices:LoadConfig()
