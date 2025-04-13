@@ -142,7 +142,7 @@ PizzaSlices:RegisterModule('settings', function ()
   -----------------------------------------------------------------------------
   -- GENERAL TAB
   -----------------------------------------------------------------------------
-  
+
   local general = CreateFrame('Frame', 'PizzaSlicesSettingsGeneral', f.content)
   general:SetFrameStrata('DIALOG')
   general:SetPoint('TOPLEFT', -1, 2)
@@ -162,7 +162,7 @@ PizzaSlices:RegisterModule('settings', function ()
     frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
     frame.label:SetJustifyH('LEFT')
     frame.label:SetPoint('LEFT', 0, 0)
-    frame.label:SetText('Open rings at mouse cursor')
+    frame.label:SetText('Open rings at mouse cursor (overrides anchor)')
     frame.checkbox = CreateFrame('CheckButton', frame:GetName() .. 'Checkbox', frame, 'UICheckButtonTemplate')
     frame.checkbox:SetNormalTexture("")
     frame.checkbox:SetPushedTexture("")
@@ -173,11 +173,80 @@ PizzaSlices:RegisterModule('settings', function ()
     frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
     frame.checkbox:SetWidth(16)
     frame.checkbox:SetHeight(16)
-    frame.checkbox:SetPoint("RIGHT" , -5, 1)
-    frame.checkbox:SetScript("OnClick", function () PizzaSlices_config.openAtCursor = this:GetChecked() ~= nil end)
+    frame.checkbox:SetPoint("RIGHT", -5, 1)
+    frame.checkbox:SetScript("OnClick", function ()
+      PizzaSlices_config.openAtCursor = this:GetChecked() ~= nil
+      PS:Print("Mouse cursor set: openAtCursor=" .. tostring(PizzaSlices_config.openAtCursor))
+    end)
     if C.openAtCursor then frame.checkbox:SetChecked() end
   end
 
+  do -- Checkbox: Trigger abilities on mouse click
+    local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralTriggerClick', general)
+    frame:SetFrameStrata('DIALOG')
+    frame:SetWidth(f:GetWidth() / 2)
+    frame:SetHeight(22)
+    frame:SetPoint('TOP', general, 'TOP', 0, -60)
+    frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.label:SetJustifyH('LEFT')
+    frame.label:SetPoint('LEFT', 0, 0)
+    frame.label:SetText('Trigger abilities on mouse click')
+    frame.checkbox = CreateFrame('CheckButton', frame:GetName() .. 'Checkbox', frame, 'UICheckButtonTemplate')
+    frame.checkbox:SetNormalTexture("")
+    frame.checkbox:SetPushedTexture("")
+    frame.checkbox:SetHighlightTexture("")
+    frame.checkbox:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkbox:SetBackdrop(backdrop)
+    frame.checkbox:SetBackdropColor(0, 0, 0, 0)
+    frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkbox:SetWidth(16)
+    frame.checkbox:SetHeight(16)
+    frame.checkbox:SetPoint("RIGHT", -5, 1)
+    frame.checkbox:SetScript("OnClick", function ()
+      PizzaSlices_config.triggerOnClick = this:GetChecked() ~= nil
+      PS:Print("Checkbox set: triggerOnClick=" .. tostring(PizzaSlices_config.triggerOnClick))
+    end)
+    if C.triggerOnClick then frame.checkbox:SetChecked() end
+  end
+
+  do -- Checkbox: Toggle Anchor
+    local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralToggleAnchor', general)
+    frame:SetFrameStrata('DIALOG')
+    frame:SetWidth(f:GetWidth() / 2)
+    frame:SetHeight(22)
+    frame:SetPoint('TOP', general, 'TOP', 0, -90)
+    frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.label:SetJustifyH('LEFT')
+    frame.label:SetPoint('LEFT', 0, 0)
+    frame.label:SetText('Show anchor (drag to set ring position)')
+    frame.checkbox = CreateFrame('CheckButton', frame:GetName() .. 'Checkbox', frame, 'UICheckButtonTemplate')
+    frame.checkbox:SetNormalTexture("")
+    frame.checkbox:SetPushedTexture("")
+    frame.checkbox:SetHighlightTexture("")
+    frame.checkbox:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkbox:SetBackdrop(backdrop)
+    frame.checkbox:SetBackdropColor(0, 0, 0, 0)
+    frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkbox:SetWidth(16)
+    frame.checkbox:SetHeight(16)
+    frame.checkbox:SetPoint("RIGHT", -5, 1)
+    frame.checkbox:SetScript("OnClick", function ()
+      PizzaSlices_config.toggleAnchor = this:GetChecked() ~= nil
+      PS:Print("Show anchor set: toggleAnchor=" .. tostring(PizzaSlices_config.toggleAnchor))
+      if PS.anchorFrame then
+        if PizzaSlices_config.toggleAnchor then
+          PS.anchorFrame:Show()
+        else
+          PS.anchorFrame:Hide()
+        end
+      else
+        PS:PrintError("Anchor frame not found")
+      end
+    end)
+    if C.toggleAnchor then frame.checkbox:SetChecked() end
+  end
   -----------------------------------------------------------------------------
   -- RINGS TAB
   -----------------------------------------------------------------------------

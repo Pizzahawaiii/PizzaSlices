@@ -2,6 +2,10 @@ local defaultConfig = {
   scale = 1,
   openAtCursor = true,
   animationDuration = 1,
+  triggerOnClick = false,
+  toggleAnchor = false,
+  anchorX = 0,
+  anchorY = 100
 }
 
 function PizzaSlices:LoadConfig()
