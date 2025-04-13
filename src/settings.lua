@@ -671,14 +671,16 @@ PizzaSlices:RegisterModule('settings', function ()
         f:EnableMouse(true)
         f:SetMovable(true)
         f:RegisterForDrag('LeftButton')
-        f.borderlow = f:CreateTexture(f:GetName() .. 'BorderLow', 'OVERLAY')
-        f.borderlow:SetAllPoints(f)
-        f.borderlow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderlo')
-        f.borderlow:SetVertexColor(c.r, c.g, c.b, 1)
-        f.borderhigh = f:CreateTexture(f:GetName() .. 'BorderHigh', 'OVERLAY')
-        f.borderhigh:SetAllPoints(f)
-        f.borderhigh:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderhi')
-        f.borderhigh:SetVertexColor(c.r, c.g, c.b, 1)
+        if not slice.noBorder then
+          f.borderlow = f:CreateTexture(f:GetName() .. 'BorderLow', 'OVERLAY')
+          f.borderlow:SetAllPoints(f)
+          f.borderlow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderlo')
+          f.borderlow:SetVertexColor(c.r, c.g, c.b, 1)
+          f.borderhigh = f:CreateTexture(f:GetName() .. 'BorderHigh', 'OVERLAY')
+          f.borderhigh:SetAllPoints(f)
+          f.borderhigh:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderhi')
+          f.borderhigh:SetVertexColor(c.r, c.g, c.b, 1)
+        end
         r.slices[idx] = f
       end
 
@@ -739,7 +741,7 @@ PizzaSlices:RegisterModule('settings', function ()
     return false
   end
 
-  function showBrowserSlices(slices, borders)
+  function showBrowserSlices(slices)
     local s = rings.edit.content.browser.slices
     s.frames = s.frames or {}
     for _, frame in ipairs(s.frames) do frame:Hide() end
@@ -753,14 +755,16 @@ PizzaSlices:RegisterModule('settings', function ()
         f:EnableMouse(true)
         f:SetMovable(true)
         f:RegisterForDrag('LeftButton')
-        f.borderlow = f:CreateTexture(f:GetName() .. 'BorderLow', 'OVERLAY')
-        f.borderlow:SetAllPoints(f)
-        f.borderlow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderlo')
-        f.borderlow:SetVertexColor(c.r, c.g, c.b, 1)
-        f.borderhigh = f:CreateTexture(f:GetName() .. 'BorderHigh', 'OVERLAY')
-        f.borderhigh:SetAllPoints(f)
-        f.borderhigh:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderhi')
-        f.borderhigh:SetVertexColor(c.r, c.g, c.b, 1)
+        if not slice.noBorder then
+          f.borderlow = f:CreateTexture(f:GetName() .. 'BorderLow', 'OVERLAY')
+          f.borderlow:SetAllPoints(f)
+          f.borderlow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderlo')
+          f.borderlow:SetVertexColor(c.r, c.g, c.b, 1)
+          f.borderhigh = f:CreateTexture(f:GetName() .. 'BorderHigh', 'OVERLAY')
+          f.borderhigh:SetAllPoints(f)
+          f.borderhigh:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderhi')
+          f.borderhigh:SetVertexColor(c.r, c.g, c.b, 1)
+        end
         s.frames[idx] = f
       end
 
@@ -779,12 +783,14 @@ PizzaSlices:RegisterModule('settings', function ()
         GameTooltip:Hide()
       end)
 
-      if borders then
-        f.borderlow:Show()
-        f.borderhigh:Show()
-      else
-        f.borderlow:Hide()
-        f.borderhigh:Hide()
+      if f.borderlow and f.borderhigh then
+        if not slice.noBorder then
+          f.borderlow:Show()
+          f.borderhigh:Show()
+        else
+          f.borderlow:Hide()
+          f.borderhigh:Hide()
+        end
       end
 
       f:Show()
@@ -831,12 +837,7 @@ PizzaSlices:RegisterModule('settings', function ()
   end
 
   function selectCategory(category)
-    showBrowserSlices(PS.slices.categories[category], category ~= 'Raid Marks')
-
-    if category == 'Raid Marks' then
-
-    else
-    end
+    showBrowserSlices(PS.slices.categories[category])
 
     local c = rings.edit.content.browser.categories
     for _, f in c.frames do

@@ -10,48 +10,56 @@ PizzaSlices:RegisterModule('slices', function ()
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\skull',
         color = { r = .992, g = .988, b = .980 },
         action = 'raidmark:8',
+        noBorder = true,
       },
       {
         name = 'Cross',
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\cross',
         color = { r = 1, g = .275, b = .184 },
         action = 'raidmark:7',
+        noBorder = true,
       },
       {
         name = 'Moon',
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\moon',
         color = { r = .431, g = .612, b = .753 },
         action = 'raidmark:5',
+        noBorder = true,
       },
       {
         name = 'Star',
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\star',
         color = { r = .992, g = .988, b = .353 },
         action = 'raidmark:1',
+        noBorder = true,
       },
       {
         name = 'Square',
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\square',
         color = { r = 0, g = .737, b = .988 },
         action = 'raidmark:6',
+        noBorder = true,
       },
       {
         name = 'Diamond',
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\diamond',
         color = { r = .698, g = .047, b = .816 },
         action = 'raidmark:3',
+        noBorder = true,
       },
       {
         name = 'Triangle',
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\triangle',
         color = { r = .094, g = .937, b = .086 },
         action = 'raidmark:4',
+        noBorder = true,
       },
       {
         name = 'Nipple',
         tex = 'Interface\\AddOns\\PizzaSlices\\img\\nipple',
         color = { r = .996, g = .439, b = .024 },
         action = 'raidmark:2',
+        noBorder = true,
       },
       {
         name = 'Clear',
@@ -65,6 +73,7 @@ PizzaSlices:RegisterModule('slices', function ()
             end
           end
         end,
+        noBorder = true,
       },
     }
   end

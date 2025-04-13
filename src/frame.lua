@@ -309,7 +309,7 @@ PizzaSlices:RegisterModule('frame', function ()
       local nextAlpha = getNext(slice.frame:GetAlpha(), PS.open and 1 or 0)
       if nextAlpha then slice.frame:SetAlpha(nextAlpha) end
       if nextAlpha then slice.frame.tex:SetAlpha(nextAlpha) end
-      local nextBorderAlpha = PS.ring.name == 'Raid Marks' and 0 or nextAlpha
+      local nextBorderAlpha = slice.noBorder and 0 or nextAlpha
       if nextAlpha then slice.frame.borderlow:SetAlpha(nextBorderAlpha) end
       if nextAlpha then slice.frame.borderhigh:SetAlpha(nextBorderAlpha) end
 
@@ -317,7 +317,7 @@ PizzaSlices:RegisterModule('frame', function ()
       if nextOGlowAlpha then slice.frame.oglow:SetAlpha(nextOGlowAlpha) end
 
       local nextIGlowAlpha = getNext(slice.frame.iglow:GetAlpha(), PS.open and slice.selected and 1 or 0)
-      if PS.ring.name == 'Raid Marks' then nextIGlowAlpha = 0 end
+      if slice.noBorder then nextIGlowAlpha = 0 end
       if nextIGlowAlpha then slice.frame.iglow:SetAlpha(nextIGlowAlpha) end
 
       local targetRadius = slice.selected and 120 or 110
