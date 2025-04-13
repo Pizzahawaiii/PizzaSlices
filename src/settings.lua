@@ -142,7 +142,7 @@ PizzaSlices:RegisterModule('settings', function ()
   -----------------------------------------------------------------------------
   -- GENERAL TAB
   -----------------------------------------------------------------------------
-  
+
   local general = CreateFrame('Frame', 'PizzaSlicesSettingsGeneral', f.content)
   general:SetFrameStrata('DIALOG')
   general:SetPoint('TOPLEFT', -1, 2)
@@ -173,9 +173,34 @@ PizzaSlices:RegisterModule('settings', function ()
     frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
     frame.checkbox:SetWidth(16)
     frame.checkbox:SetHeight(16)
-    frame.checkbox:SetPoint("RIGHT" , -5, 1)
+    frame.checkbox:SetPoint("RIGHT", -5, 1)
     frame.checkbox:SetScript("OnClick", function () PizzaSlices_config.openAtCursor = this:GetChecked() ~= nil end)
     if C.openAtCursor then frame.checkbox:SetChecked() end
+  end
+  do -- Checkbox: Trigger abilities on mouse click
+    local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralTriggerClick', general)
+    frame:SetFrameStrata('DIALOG')
+    frame:SetWidth(f:GetWidth() / 2)
+    frame:SetHeight(22)
+    frame:SetPoint('TOP', general, 'TOP', 0, -60)
+    frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.label:SetJustifyH('LEFT')
+    frame.label:SetPoint('LEFT', 0, 0)
+    frame.label:SetText('Trigger abilities on mouse click')
+    frame.checkbox = CreateFrame('CheckButton', frame:GetName() .. 'Checkbox', frame, 'UICheckButtonTemplate')
+    frame.checkbox:SetNormalTexture("")
+    frame.checkbox:SetPushedTexture("")
+    frame.checkbox:SetHighlightTexture("")
+    frame.checkbox:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkbox:SetBackdrop(backdrop)
+    frame.checkbox:SetBackdropColor(0, 0, 0, 0)
+    frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkbox:SetWidth(16)
+    frame.checkbox:SetHeight(16)
+    frame.checkbox:SetPoint("RIGHT", -5, 1)
+    frame.checkbox:SetScript("OnClick", function () PizzaSlices_config.triggerOnClick = this:GetChecked() ~= nil end)
+    if C.triggerOnClick then frame.checkbox:SetChecked() end
   end
 
   -----------------------------------------------------------------------------

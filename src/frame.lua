@@ -6,8 +6,10 @@ PizzaSlices:RegisterModule('frame', function ()
   f.pointerAngle = nil
   f:SetPoint('CENTER', 0, 100)
   f:SetFrameStrata('FULLSCREEN')
-  f:SetWidth(1)
-  f:SetHeight(1)
+  f:SetFrameLevel(10)
+  f:SetWidth(400)
+  f:SetHeight(400)
+  f:EnableMouse(true)
   f:Hide()
 
   f.circle = CreateFrame('Frame', 'PizzaSlicesCircle', f)
@@ -30,14 +32,14 @@ PizzaSlices:RegisterModule('frame', function ()
 
   function PS.frame.open(ring)
     PS.ring = ring
-
+  
     for idx, frame in PS.frames do
       frame:Hide()
     end
-
+  
     local cx, cy = 0, 0
     local scale = UIParent:GetEffectiveScale()
-
+  
     if C.openAtCursor then
       local w = GetScreenWidth() * scale
       local h = GetScreenHeight() * scale
@@ -45,7 +47,7 @@ PizzaSlices:RegisterModule('frame', function ()
       cx = (cursx - w / 2)
       cy = (cursy - h / 2)
     end
-
+  
     PS.frame:ClearAllPoints()
     PS.frame:SetPoint('CENTER', cx / scale, cy / scale)
     PS.frame:SetAlpha(0)
@@ -55,18 +57,19 @@ PizzaSlices:RegisterModule('frame', function ()
     PS.frame.circle.glow:SetWidth(240 * sqrt(C.scale))
     PS.frame.circle.glow:SetHeight(240 * sqrt(C.scale))
     PS.frame.circle.glow:SetAlpha(0)
-    PS.frame.pointer:SetWidth(400 * sqrt(C.scale))
+    PS.frame.pointer:SetWidth(600 * sqrt(C.scale))
     PS.frame.pointer:SetHeight(400 * sqrt(C.scale))
     PS.frame.pointer:SetAlpha(0)
-
+  
     local radius = 300 * sqrt(C.scale)
-    local angle = 90 -- 90 degress is 12 o'clock here
+    local angle = 90
     for idx, slice in ring.slices do
       local x, y, nextAngle = PS.utils.getSliceCoords(idx, PS.utils.length(ring.slices), angle, radius)
       local fname = 'PizzaSlicesButton' .. idx
       local f = _G[fname]
       if not f then
         f = CreateFrame('Button', 'PizzaSlicesButton' .. idx, PS.frame)
+        f:EnableMouse(true)
         table.insert(PS.frames, f)
       end
       f:ClearAllPoints()
@@ -75,20 +78,20 @@ PizzaSlices:RegisterModule('frame', function ()
       f:SetHeight(80 * sqrt(C.scale))
       f:SetAlpha(0)
       f:Show()
-
+  
       f.radius = radius
       f.startAngle = angle
       f.angle = angle
-
+  
       angle = nextAngle
-
+  
       if not f.tex then
         f.tex = f:CreateTexture(f:GetName() .. 'Tex', 'ARTWORK')
       end
       f.tex:SetAllPoints(f)
       f.tex:SetTexture(ring.slices[idx].tex)
       f.tex:SetAlpha(0)
-
+  
       if not f.borderlow then
         f.borderlow = f:CreateTexture(f:GetName() .. 'BorderLow', 'OVERLAY')
       end
@@ -96,7 +99,7 @@ PizzaSlices:RegisterModule('frame', function ()
       f.borderlow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderlo')
       f.borderlow:SetAlpha(0)
       f.borderlow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
-
+  
       if not f.borderhigh then
         f.borderhigh = f:CreateTexture(f:GetName() .. 'BorderHigh', 'OVERLAY')
       end
@@ -104,7 +107,7 @@ PizzaSlices:RegisterModule('frame', function ()
       f.borderhigh:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderhi')
       f.borderhigh:SetAlpha(0)
       f.borderhigh:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
-
+  
       if not f.oglow then
         f.oglow = f:CreateTexture(f:GetName() .. 'OuterGlow', 'BACKGROUND')
       end
@@ -113,8 +116,7 @@ PizzaSlices:RegisterModule('frame', function ()
       f.oglow:SetHeight(f:GetHeight() * 2)
       f.oglow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\oglow')
       f.oglow:SetAlpha(0)
-      -- f.oglow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
-
+  
       if not f.iglow then
         f.iglow = f:CreateTexture(f:GetName() .. 'InnerGlow', 'OVERLAY')
       end
@@ -124,13 +126,22 @@ PizzaSlices:RegisterModule('frame', function ()
       f.iglow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\iglow')
       f.iglow:SetAlpha(0)
       f.iglow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
-
+  
+      -- Bind idx explicitly
+      local sliceIdx = idx
+      f:SetScript('OnClick', function(self, button)
+        if C.triggerOnClick and PS.open then
+          PS:SelectSlice(sliceIdx)
+          PS:TriggerOnClick(button or "LeftButton")
+        end
+      end)
+  
       ring.slices[idx].frame = f
       ring.slices[idx].selected = false
     end
-
+  
     PS:SelectSlice(PS.ring.quickSelect)
-
+  
     PS.frame:SetAlpha(0)
     PS.frame:Show()
   end
@@ -344,7 +355,7 @@ PizzaSlices:RegisterModule('frame', function ()
     -- Fade stuff if needed
     local circx, circy = getCircleCenterCoords()
     local cursx, cursy = GetCursorPosition()
-    if PS.utils.distance(circx, circy, cursx, cursy) < 21 * sqrt(C.scale) then
+    if PS.utils.distance(circx, circy, cursx, cursy) < 85* sqrt(C.scale) then
       PS:SelectSlice(PS.ring.quickSelect)
 
       local r, g, b = 1, 1, 1
