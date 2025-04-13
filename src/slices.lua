@@ -189,6 +189,8 @@ PizzaSlices:RegisterModule('slices', function ()
     ['General'] = getSpellSlices('General'),
     ['Abilities'] = getSpellSlices(),
     ['Mounts'] = getSpellSlices('ZMounts'),
+    ['Companions'] = getSpellSlices('ZzCompanions'),
+    ['Toys'] = getSpellSlices('ZzzzToys'),
     ['Raid Marks'] = getRaidmarkSlices,
     ['Macros'] = getMacroSlices,
     ['ItemRack Sets'] = getItemrackSlices,
