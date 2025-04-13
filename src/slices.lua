@@ -224,9 +224,11 @@ PizzaSlices:RegisterModule('slices', function ()
   PS.slices:RegisterEvent('UPDATE_MACROS')
   PS.slices:RegisterEvent('SPELLS_CHANGED')
   PS.slices:SetScript('OnEvent', function ()
-    PS.slices.load(true)
     if event == 'SPELLS_CHANGED' then
+      PS.slices.load(true)
       PS.slices:UnregisterEvent('SPELLS_CHANGED')
+    else
+      PS.slices.load()
     end
   end)
 end)
