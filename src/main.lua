@@ -126,11 +126,19 @@ local actions = {
   end,
 
   macro = function (v, slice)
+    local runMacro = RunMacro
+    if not runMacro and Roids then
+      runMacro = Roids.ExecuteMacroByName
+    end
+    if not runMacro and CleveRoids then
+      runMacro = CleveRoids.ExecuteMacroByName
+    end
+
     if v == '<name>' then
       local _, macroName = PS.utils.strSplit(slice.name, ' ')
-      if macroName then RunMacro(macroName) end
+      if macroName then runMacro(macroName) end
     else
-      RunMacro(v)
+      runMacro(v)
     end
   end,
 }
