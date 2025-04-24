@@ -316,20 +316,21 @@ PizzaSlices:RegisterModule('frame', function ()
       if slice.noBorder then nextIGlowAlpha = 0 end
       if nextIGlowAlpha then slice.frame.iglow:SetAlpha(nextIGlowAlpha) end
 
+      local sliceCount = PS.utils.length(PS.ring.slices)
       local targetRadius = slice.selected and 130 or 120
       if not PS.open then targetRadius = 300 end
       local nextRadius = getNext(slice.frame.radius, targetRadius * sqrt(C.scale), slice.selected)
       if nextRadius then
-        local x, y = PS.utils.getSliceCoords(idx, PS.utils.length(PS.ring.slices), slice.frame.angle, nextRadius)
+        local x, y = PS.utils.getSliceCoords(idx, sliceCount, slice.frame.angle, nextRadius)
         slice.frame:ClearAllPoints()
         slice.frame:SetPoint('CENTER', x, y)
         slice.frame.radius = nextRadius
       end
 
-      if not PS.open then
-        local nextAngle = getNext(slice.frame.angle, slice.frame.startAngle - 90)
+      if not PS.open and sliceCount > 1 then
+        local nextAngle = getNext(slice.frame.angle, slice.frame.startAngle - 60 * C.animation.rotateOnClose)
         if nextAngle then
-          local x, y = PS.utils.getSliceCoords(idx, PS.utils.length(PS.ring.slices), nextAngle, nextRadius or slice.frame.radius)
+          local x, y = PS.utils.getSliceCoords(idx, sliceCount, nextAngle, nextRadius or slice.frame.radius)
           slice.frame:ClearAllPoints()
           slice.frame:SetPoint('CENTER', x, y)
           slice.frame.angle = nextAngle

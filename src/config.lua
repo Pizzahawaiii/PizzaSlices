@@ -1,7 +1,10 @@
 local defaultConfig = {
   scale = 1,
   openAtCursor = true,
-  animationDuration = 1,
+  animation = {
+    duration = 1,
+    rotateOnClose = 1,
+  },
 }
 
 function PizzaSlices:LoadConfig()
