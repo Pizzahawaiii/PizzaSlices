@@ -231,22 +231,24 @@ PizzaSlices:RegisterModule('frame', function ()
     rotate(PS.frame.pointer.tex, PS.frame.pointerAngle)
   end
 
-  local function getStep(current, target, fixedDuration)
+  local function getStep(current, target, fixedDuration, speedScale)
     local diff = math.abs(target - current)
     if diff < .02 then return diff end
     local factor = PS.open and 1 or .5
-    local duration = fixedDuration and 1 or C.animationDuration
-    local step = diff / (PS.fps * duration / 13) * factor
+    local duration = fixedDuration and 1 or C.animation.duration
+    local step = diff / (PS.fps * duration / 13) * factor * (speedScale or 1)
     return step > .001 and step
   end
 
-  function getNext(current, target, fixedDuration)
+  function getNext(current, target, fixedDuration, speedScale)
     if current == target then return end
-    local diff = target - current
-    local step = getStep(current, target, fixedDuration)
+
+    local step = getStep(current, target, fixedDuration, speedScale)
     if not step then return target end
+
+    local diff = target - current
     local nextStep = current < target and math.min(diff, step) or math.max(diff, -step)
-    return (current + nextStep)
+    return current + nextStep
   end
 
   local circleAngle = 0
@@ -276,12 +278,18 @@ PizzaSlices:RegisterModule('frame', function ()
       PS.frame.pointer:SetWidth(nextSize)
       PS.frame.pointer:SetHeight(nextSize)
     end
+
+    local nextAlpha = getNext(PS.frame.circle:GetAlpha(), PS.open and 1 or 0, false, 2)
+    if nextAlpha then
+      PS.frame.circle:SetAlpha(nextAlpha)
+      PS.frame.circle.tex:SetAlpha(nextAlpha)
+    end
   end
 
   function animate()
     animateCircle()
 
-    local nextAlpha = getNext(PS.frame:GetAlpha(), PS.open and 1 or 0)
+    local nextAlpha = getNext(PS.frame:GetAlpha(), PS.open and 1 or 0, false, .9)
     if nextAlpha then
       PS.frame:SetAlpha(nextAlpha)
     elseif not PS.open then
