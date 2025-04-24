@@ -313,7 +313,7 @@ PizzaSlices:RegisterModule('frame', function ()
       if slice.noBorder then nextIGlowAlpha = 0 end
       if nextIGlowAlpha then slice.frame.iglow:SetAlpha(nextIGlowAlpha) end
 
-      local targetRadius = slice.selected and 120 or 110
+      local targetRadius = slice.selected and 130 or 120
       if not PS.open then targetRadius = 300 end
       local nextRadius = getNext(slice.frame.radius, targetRadius * sqrt(C.scale))
       if nextRadius then
