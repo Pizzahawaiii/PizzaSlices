@@ -302,9 +302,14 @@ PizzaSlices:RegisterModule('frame', function ()
         slice.frame.iglow:SetHeight(nextSize * 64 / 60)
       end
 
-      local nextAlpha = getNext(slice.frame:GetAlpha(), PS.open and 1 or 0)
+      local targetAlpha = PS.open and 1 or 0
+      local nextAlpha = getNext(slice.frame:GetAlpha(), targetAlpha)
       if nextAlpha then slice.frame:SetAlpha(nextAlpha) end
       if nextAlpha then slice.frame.tex:SetAlpha(nextAlpha) end
+      if not nextAlpha and slice.frame.tex:GetAlpha() ~= targetAlpha then
+        slice.frame.tex:SetAlpha(targetAlpha)
+      end
+
       local nextBorderAlpha = slice.noBorder and 0 or nextAlpha
       if nextBorderAlpha then slice.frame.borderlow:SetAlpha(nextBorderAlpha) end
       if nextBorderAlpha then slice.frame.borderhigh:SetAlpha(nextBorderAlpha) end
