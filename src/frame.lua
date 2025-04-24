@@ -273,13 +273,6 @@ PizzaSlices:RegisterModule('frame', function ()
       PS.frame.pointer:SetWidth(nextSize)
       PS.frame.pointer:SetHeight(nextSize)
     end
-
-    local nextAlpha = getNext(PS.frame.circle:GetAlpha(), PS.open and 1 or 0)
-    if nextAlpha then
-      PS.frame.circle:SetAlpha(nextAlpha)
-      PS.frame.circle.glow:SetAlpha(nextAlpha)
-      PS.frame.pointer:SetAlpha(nextAlpha)
-    end
   end
 
   function animate()
