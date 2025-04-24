@@ -231,19 +231,22 @@ PizzaSlices:RegisterModule('frame', function ()
     rotate(PS.frame.pointer.tex, PS.frame.pointerAngle)
   end
 
-  local function getStep(current, target)
+  local function getStep(current, target, fixedDuration)
     local diff = math.abs(target - current)
+    if diff < .02 then return diff end
     local factor = PS.open and 1 or .5
-    local duration = C.animationDuration / 10
-    return diff / (PS.fps * duration) * factor
+    local duration = fixedDuration and 1 or C.animationDuration
+    local step = diff / (PS.fps * duration / 13) * factor
+    return step > .001 and step
   end
 
-  function getNext(current, target, debug)
+  function getNext(current, target, fixedDuration)
     if current == target then return end
     local diff = target - current
-    local step = getStep(current, target)
+    local step = getStep(current, target, fixedDuration)
+    if not step then return target end
     local nextStep = current < target and math.min(diff, step) or math.max(diff, -step)
-    return current + nextStep
+    return (current + nextStep)
   end
 
   local circleAngle = 0
@@ -315,7 +318,7 @@ PizzaSlices:RegisterModule('frame', function ()
 
       local targetRadius = slice.selected and 130 or 120
       if not PS.open then targetRadius = 300 end
-      local nextRadius = getNext(slice.frame.radius, targetRadius * sqrt(C.scale))
+      local nextRadius = getNext(slice.frame.radius, targetRadius * sqrt(C.scale), slice.selected)
       if nextRadius then
         local x, y = PS.utils.getSliceCoords(idx, PS.utils.length(PS.ring.slices), slice.frame.angle, nextRadius)
         slice.frame:ClearAllPoints()
