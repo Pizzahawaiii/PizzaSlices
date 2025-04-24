@@ -303,8 +303,8 @@ PizzaSlices:RegisterModule('frame', function ()
       if nextAlpha then slice.frame:SetAlpha(nextAlpha) end
       if nextAlpha then slice.frame.tex:SetAlpha(nextAlpha) end
       local nextBorderAlpha = slice.noBorder and 0 or nextAlpha
-      if nextAlpha then slice.frame.borderlow:SetAlpha(nextBorderAlpha) end
-      if nextAlpha then slice.frame.borderhigh:SetAlpha(nextBorderAlpha) end
+      if nextBorderAlpha then slice.frame.borderlow:SetAlpha(nextBorderAlpha) end
+      if nextBorderAlpha then slice.frame.borderhigh:SetAlpha(nextBorderAlpha) end
 
       local nextOGlowAlpha = getNext(slice.frame.oglow:GetAlpha(), PS.open and slice.selected and 1 or 0)
       if nextOGlowAlpha then slice.frame.oglow:SetAlpha(nextOGlowAlpha) end
