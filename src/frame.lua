@@ -236,7 +236,7 @@ PizzaSlices:RegisterModule('frame', function ()
     if diff < .02 then return diff end
     local factor = PS.open and 1 or .5
     local duration = fixedDuration and 1 or C.animation.duration
-    local step = diff / (PS.fps * duration / 13) * factor * (speedScale or 1)
+    local step = diff / (PS.fps * duration / 15) * factor * (speedScale or 1)
     return step > .001 and step
   end
 
