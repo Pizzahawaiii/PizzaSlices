@@ -357,7 +357,7 @@ PizzaSlices:RegisterModule('frame', function ()
     if PS.utils.distance(circx, circy, cursx, cursy) < 21 * sqrt(C.scale) then
       PS:SelectSlice(PS.ring.quickSelect)
 
-      local r, g, b = 1, 1, 1
+      local r, g, b = .8, .8, .8
       if PS.ring.quickSelect then
         r = PS.ring.slices[PS.ring.quickSelect].color.r
         g = PS.ring.slices[PS.ring.quickSelect].color.g
