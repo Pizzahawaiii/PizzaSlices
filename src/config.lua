@@ -14,15 +14,14 @@ function PizzaSlices:LoadConfig()
   end
 
   for key, defaultValue in pairs(defaultConfig) do
-    local v = PizzaSlices_config[key]
-    if v == nil then
-      v = defaultValue
+    if PizzaSlices_config[key] == nil then
+      PizzaSlices_config[key] = defaultValue
     end
 
-    if type(v) == 'table' then
+    if type(PizzaSlices_config[key]) == 'table' then
       for k, d in pairs(defaultValue) do
-        if v[k] == nil then
-          v[k] = d
+        if PizzaSlices_config[key][k] == nil then
+          PizzaSlices_config[key][k] = d
         end
       end
     end
