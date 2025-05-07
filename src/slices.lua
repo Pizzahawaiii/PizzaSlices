@@ -82,7 +82,9 @@ PizzaSlices:RegisterModule('slices', function ()
       return true
     end
 
-    local function includeSpell(spellName)
+    local function includeSpell(spellName, spellRank)
+      if string.find(spellRank, 'Passive') then return false end
+      if spellName == 'Hardcore' then return false end
       if spellName == 'Summon Warhorse' then return false end
       if spellName == 'Summon Charger' then return false end
       return true
@@ -124,8 +126,8 @@ PizzaSlices:RegisterModule('slices', function ()
         local tabName, _, tabOffset, tabSpellCount = GetSpellTabInfo(i)
         if includeTab(tabName) then
           for spellId = tabOffset + 1, tabOffset + tabSpellCount, 1 do
-            local spellName = GetSpellName(spellId, 'spell')
-            if includeSpell(spellName) then
+            local spellName, spellRank = GetSpellName(spellId, 'spell')
+            if includeSpell(spellName, spellRank) then
               slicesToAdd[spellName] = {
                 name = spellName,
                 tex = GetSpellTexture(spellId, 'spell'),
