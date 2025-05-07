@@ -155,13 +155,13 @@ PizzaSlices:RegisterModule('settings', function ()
   do -- Checkbox: Position ring at mouse
     local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralMousePos', general)
     frame:SetFrameStrata('DIALOG')
-    frame:SetWidth(f:GetWidth() / 2)
+    frame:SetWidth(f:GetWidth() * .4)
     frame:SetHeight(22)
     frame:SetPoint('TOP', general, 'TOP', 0, -30)
     frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
     frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
     frame.label:SetJustifyH('LEFT')
-    frame.label:SetPoint('LEFT', 0, 0)
+    frame.label:SetPoint('LEFT', 0, 1)
     frame.label:SetText('Open rings at mouse cursor')
     frame.checkbox = CreateFrame('CheckButton', frame:GetName() .. 'Checkbox', frame, 'UICheckButtonTemplate')
     frame.checkbox:SetNormalTexture("")
@@ -173,9 +173,10 @@ PizzaSlices:RegisterModule('settings', function ()
     frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
     frame.checkbox:SetWidth(16)
     frame.checkbox:SetHeight(16)
-    frame.checkbox:SetPoint("RIGHT" , -5, 1)
+    frame.checkbox:SetPoint("RIGHT" , 0, 0)
     frame.checkbox:SetScript("OnClick", function () PizzaSlices_config.openAtCursor = this:GetChecked() ~= nil end)
     if C.openAtCursor then frame.checkbox:SetChecked() end
+    general.mousePos = frame
   end
 
   -----------------------------------------------------------------------------
