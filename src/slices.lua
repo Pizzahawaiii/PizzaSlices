@@ -82,9 +82,7 @@ PizzaSlices:RegisterModule('slices', function ()
       return true
     end
 
-    local added = {}
     local function includeSpell(spellName)
-      if added[spellName] then return false end
       if spellName == 'Summon Warhorse' then return false end
       if spellName == 'Summon Charger' then return false end
       return true
@@ -121,28 +119,28 @@ PizzaSlices:RegisterModule('slices', function ()
         end
       end
 
+      local slicesToAdd = {}
       for i = 1, MAX_SKILLLINE_TABS, 1 do
         local tabName, _, tabOffset, tabSpellCount = GetSpellTabInfo(i)
         if includeTab(tabName) then
           for spellId = tabOffset + 1, tabOffset + tabSpellCount, 1 do
             local spellName = GetSpellName(spellId, 'spell')
             if includeSpell(spellName) then
-              table.insert(slices, {
+              slicesToAdd[spellName] = {
                 name = spellName,
                 tex = GetSpellTexture(spellId, 'spell'),
                 color = PS.utils.getRandomColor(),
                 action = 'spell:<name>',
                 spellId = spellId,
-              })
-              added[spellName] = true
+              }
             end
           end
         end
       end
 
-      -- Reset list of added spells so we can run this whole thing again
-      -- if needed.
-      added = {}
+      for _, slice in pairs(slicesToAdd) do
+        table.insert(slices, slice)
+      end
 
       return slices
     end
