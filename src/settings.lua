@@ -35,7 +35,7 @@ PizzaSlices:RegisterModule('settings', function ()
   -- MAIN FRAME
   -----------------------------------------------------------------------------
   
-  -- f:Hide()
+  f:Hide()
   f:SetPoint('CENTER', 0, 0)
   f:SetFrameStrata('DIALOG')
   f:SetWidth(800)
