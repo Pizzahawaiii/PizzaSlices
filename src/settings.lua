@@ -35,7 +35,7 @@ PizzaSlices:RegisterModule('settings', function ()
   -- MAIN FRAME
   -----------------------------------------------------------------------------
   
-  f:Hide()
+  -- f:Hide()
   f:SetPoint('CENTER', 0, 0)
   f:SetFrameStrata('DIALOG')
   f:SetWidth(800)
@@ -177,6 +177,89 @@ PizzaSlices:RegisterModule('settings', function ()
     frame.checkbox:SetScript("OnClick", function () PizzaSlices_config.openAtCursor = this:GetChecked() ~= nil end)
     if C.openAtCursor then frame.checkbox:SetChecked() end
     general.mousePos = frame
+  end
+
+  do -- Dropdown: Ring close rotation animation
+    local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralCloseRotation', general)
+    frame:SetFrameStrata('DIALOG')
+    frame:SetWidth(f:GetWidth() * .4)
+    frame:SetHeight(22)
+    frame:SetPoint('TOP', general.mousePos, 'TOP', 0, -32)
+    frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.label:SetJustifyH('LEFT')
+    frame.label:SetPoint('LEFT', 0, 1)
+    frame.label:SetText('Ring close animation rotation')
+
+    local function updateCheckboxes()
+      local v = C.animation.rotateOnClose
+      frame.checkboxOff:SetChecked(v == 0)
+      frame.checkboxLeft:SetChecked(v == -1)
+      frame.checkboxRight:SetChecked(v == 1)
+    end
+
+    local function setRotateOnClose(v)
+      PizzaSlices_config.animation.rotateOnClose = v
+      updateCheckboxes()
+    end
+
+    frame.checkboxOff = CreateFrame('CheckButton', frame:GetName() .. 'CheckboxOff', frame, 'UICheckButtonTemplate')
+    frame.checkboxOff:SetNormalTexture("")
+    frame.checkboxOff:SetPushedTexture("")
+    frame.checkboxOff:SetHighlightTexture("")
+    frame.checkboxOff:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkboxOff:SetBackdrop(backdrop)
+    frame.checkboxOff:SetBackdropColor(0, 0, 0, 0)
+    frame.checkboxOff:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkboxOff:SetWidth(16)
+    frame.checkboxOff:SetHeight(16)
+    frame.checkboxOff:SetPoint("RIGHT" , 0, 0)
+    frame.checkboxOff:SetScript("OnClick", function () setRotateOnClose(0) end)
+    frame.checkboxOff.label = frame.checkboxOff:CreateFontString(frame.checkboxOff:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.checkboxOff.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.checkboxOff.label:SetJustifyH('RIGHT')
+    frame.checkboxOff.label:SetPoint('RIGHT', -20, 0)
+    frame.checkboxOff.label:SetText('Off')
+
+    frame.checkboxLeft = CreateFrame('CheckButton', frame:GetName() .. 'CheckboxLeft', frame, 'UICheckButtonTemplate')
+    frame.checkboxLeft:SetNormalTexture("")
+    frame.checkboxLeft:SetPushedTexture("")
+    frame.checkboxLeft:SetHighlightTexture("")
+    frame.checkboxLeft:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkboxLeft:SetBackdrop(backdrop)
+    frame.checkboxLeft:SetBackdropColor(0, 0, 0, 0)
+    frame.checkboxLeft:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkboxLeft:SetWidth(16)
+    frame.checkboxLeft:SetHeight(16)
+    frame.checkboxLeft:SetPoint("RIGHT" , 0, -20)
+    frame.checkboxLeft:SetScript("OnClick", function () setRotateOnClose(-1) end)
+    frame.checkboxLeft.label = frame.checkboxLeft:CreateFontString(frame.checkboxLeft:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.checkboxLeft.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.checkboxLeft.label:SetJustifyH('RIGHT')
+    frame.checkboxLeft.label:SetPoint('RIGHT', -20, 0)
+    frame.checkboxLeft.label:SetText('Left')
+
+    frame.checkboxRight = CreateFrame('CheckButton', frame:GetName() .. 'CheckboxRight', frame, 'UICheckButtonTemplate')
+    frame.checkboxRight:SetNormalTexture("")
+    frame.checkboxRight:SetPushedTexture("")
+    frame.checkboxRight:SetHighlightTexture("")
+    frame.checkboxRight:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkboxRight:SetBackdrop(backdrop)
+    frame.checkboxRight:SetBackdropColor(0, 0, 0, 0)
+    frame.checkboxRight:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkboxRight:SetWidth(16)
+    frame.checkboxRight:SetHeight(16)
+    frame.checkboxRight:SetPoint("RIGHT" , 0, -40)
+    frame.checkboxRight:SetScript("OnClick", function () setRotateOnClose(1) end)
+    frame.checkboxRight.label = frame.checkboxRight:CreateFontString(frame.checkboxRight:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.checkboxRight.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.checkboxRight.label:SetJustifyH('RIGHT')
+    frame.checkboxRight.label:SetPoint('RIGHT', -20, 0)
+    frame.checkboxRight.label:SetText('Right')
+
+    updateCheckboxes()
+
+    general.closeRotation = frame
   end
 
   -----------------------------------------------------------------------------
