@@ -126,16 +126,9 @@ local actions = {
   end,
 
   macro = function (v, slice)
-    local runMacro = RunMacro
-    if not runMacro and Roids then
-      runMacro = Roids.ExecuteMacroByName
-    end
-    if not runMacro and CleveRoids then
-      runMacro = CleveRoids.ExecuteMacroByName
-    end
-
+    local runMacro = PS.macro.getRunMacro()
     if v == '<name>' then
-      local _, macroName = PS.utils.strSplit(slice.name, ' ')
+      local macroName = string.gsub(slice.name, 'Macro: ', '')
       if macroName then runMacro(macroName) end
     else
       runMacro(v)

@@ -10,6 +10,7 @@ src\config.lua
 src\utils.lua
 src\slices.lua
 src\rings.lua
+src\macro.lua
 src\frame.lua
 src\settings.lua
 src\commands.lua

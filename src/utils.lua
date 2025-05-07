@@ -24,11 +24,12 @@ PizzaSlices:RegisterModule('utils', function ()
     return count
   end
 
-  function PS.utils.strSplit(str, delimiter)
+  function PS.utils.strSplit(str, delimiter, asTable)
     if not str then return nil end
     local delimiter, fields = delimiter or ':', {}
     local pattern = string.format('([^%s]+)', delimiter)
     string.gsub(str, pattern, function(c) fields[table.getn(fields)+1] = c end)
+    if asTable then return fields end
     return unpack(fields)
   end
 
