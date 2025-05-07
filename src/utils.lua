@@ -52,6 +52,21 @@ PizzaSlices:RegisterModule('utils', function ()
     return x, y, nextAngle
   end
 
+  local function calculateCorner(angle)
+    local r = rad(angle)
+    return .5 + math.cos(r) / sqrt(2), .5 + math.sin(r) / sqrt(2)
+  end
+
+  function PS.utils.rotateTexture(texture, angle)
+    local a = angle * -1
+    local LRx, LRy = calculateCorner(a + 45)
+    local LLx, LLy = calculateCorner(a + 135)
+    local ULx, ULy = calculateCorner(a + 225)
+    local URx, URy = calculateCorner(a - 45)
+
+    texture:SetTexCoord(ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
+  end
+
   local function hue2rgb(p, q, t)
     if t < 0 then t = t + 1 end
     if t > 1 then t = t - 1 end

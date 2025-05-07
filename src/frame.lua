@@ -135,21 +135,6 @@ PizzaSlices:RegisterModule('frame', function ()
     PS.frame:Show()
   end
 
-  local function calculateCorner(angle)
-    local r = rad(angle)
-    return .5 + math.cos(r) / sqrt(2), .5 + math.sin(r) / sqrt(2)
-  end
-
-  local function rotate(texture, angle)
-    local a = angle * -1
-    local LRx, LRy = calculateCorner(a + 45)
-    local LLx, LLy = calculateCorner(a + 135)
-    local ULx, ULy = calculateCorner(a + 225)
-    local URx, URy = calculateCorner(a - 45)
-
-    texture:SetTexCoord(ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
-  end
-
   local function getCircleCenterCoords()
     local point, relativeTo, relativePoint, xOfs, yOfs = PS.frame:GetPoint(1)
     local scale = UIParent:GetEffectiveScale()
@@ -228,7 +213,7 @@ PizzaSlices:RegisterModule('frame', function ()
       end
     end
 
-    rotate(PS.frame.pointer.tex, PS.frame.pointerAngle)
+    PS.utils.rotateTexture(PS.frame.pointer.tex, PS.frame.pointerAngle)
   end
 
   local function getStep(current, target, fixedDuration, speedScale)
@@ -255,8 +240,8 @@ PizzaSlices:RegisterModule('frame', function ()
   function animateCircle()
     -- Constantly rotate circle + glow
     circleAngle = circleAngle + 1.5
-    rotate(PS.frame.circle.tex, circleAngle)
-    rotate(PS.frame.circle.glow.tex, circleAngle)
+    PS.utils.rotateTexture(PS.frame.circle.tex, circleAngle)
+    PS.utils.rotateTexture(PS.frame.circle.glow.tex, circleAngle)
 
     -- Rotate pointer towards target angle if needed
     rotatePointer()
