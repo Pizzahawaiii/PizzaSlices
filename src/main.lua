@@ -105,14 +105,17 @@ local actions = {
   end,
 
   raidmark = function (v)
+    local isSolo = GetNumPartyMembers() == 0 and GetNumRaidMembers() == 0
+    local soloRaidMark = PS.utils.hasSuperWoW() and isSolo
+
     if v == 'clear' then
       for i = 1, 8, 1 do
         if UnitExists('mark' .. i) then
-          SetRaidTarget('mark' .. i, 0)
+          SetRaidTarget('mark' .. i, 0, soloRaidMark)
         end
       end
     else
-      SetRaidTarget('target', tonumber(v))
+      SetRaidTarget('target', tonumber(v), soloRaidMark)
     end
   end,
 

@@ -113,4 +113,8 @@ PizzaSlices:RegisterModule('utils', function ()
 
     return false
   end
+
+  function PS.utils.hasSuperWoW()
+    return SetAutoloot ~= nil
+  end
 end)
