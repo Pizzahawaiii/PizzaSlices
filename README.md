@@ -83,7 +83,7 @@ Use one of the following commands to open the settings menu:
 <img src="gif/settings-ringcreation.gif" width="65%" align="left" />
 <img src="img/margin.png" width="0" height="300" align="left" />
 
-On the 'Rings' tab, click on the green + or on the name of one of the existing rings. Select one of the categories on the right. Then, drag & drop any of the abilities/mounts/macros/... from the center into the ring area on the left (purple background). Finally, click 'Save'.
+On the 'Rings' tab, click on the green + or on the name of one of the existing rings. Select one of the categories on the right. Then, drag & drop any of the items from the center into the ring area on the left (purple background). Finally, click 'Save'.
 <br clear="left"/>
 
 ### Remove Stuff from a Ring
