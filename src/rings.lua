@@ -27,6 +27,14 @@ PizzaSlices:RegisterModule('rings', function ()
     PS.settings.update()
   end
 
+  function PS.rings.remove(idx)
+    if not PizzaSlices_rings then return end
+    local rings = PS.utils.clone(PizzaSlices_rings)
+    local removed = table.remove(rings, idx)
+    _G.PizzaSlices_rings = rings
+    return removed
+  end
+
   function PS.rings.init()
     PS.rings.load()
   end

@@ -697,7 +697,7 @@ PizzaSlices:RegisterModule('settings', function ()
           f.bind:Hide()
         end)
         f.delete:SetScript('OnClick', function ()
-          table.remove(PizzaSlices_rings, idx)
+          PS.rings.remove(idx)
           PS.settings.shiftBindings(idx)
           PS.settings.update()
         end)
@@ -1027,8 +1027,8 @@ PizzaSlices:RegisterModule('settings', function ()
     for idx = fromIdx, PS.utils.length(PizzaSlices_rings) do
       local key = GetBindingKey('PIZZASLICES_RING' .. idx)
       local newKey = GetBindingKey('PIZZASLICES_RING' .. (idx + 1))
-      SetBinding(key)
-      SetBinding(newKey, 'PIZZASLICES_RING' .. idx)
+      if key then SetBinding(key) end
+      if newKey then SetBinding(newKey, 'PIZZASLICES_RING' .. idx) end
     end
     SaveBindings(GetCurrentBindingSet())
   end
