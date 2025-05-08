@@ -2,7 +2,7 @@
 
 Radial action menus for [TurtleWoW](https://turtle-wow.org). A simplified [OPie](https://www.curseforge.com/wow/addons/opie) clone.
 
-<img src="gif/demo.gif" width="00%">
+<img src="gif/demo.gif" width="100%">
 
 ## Install
 
@@ -25,7 +25,7 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 <img src="gif/raidmarks.gif" width="300" align="left" />
 <img src="img/margin.png" width="0" height="260" align="left" />
 
-Assign any raid marks quickly and easily with the press of a single button, not matter if you're in a group/raid or using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons). There's also a special action to instantly clear all previously assigned raid marks.
+Assign any raid marks quickly and easily with the press of a single button, not matter if you're using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons) or in a group/raid. There's also a special action to instantly clear all previously assigned raid marks.
 <br clear="left"/>
 
 ### Abilities
