@@ -2,7 +2,7 @@
 
 Radial action menus for [TurtleWoW](https://turtle-wow.org). A simplified [OPie](https://www.curseforge.com/wow/addons/opie) clone.
 
-![demo](./gif/demo.gif)
+<img src="gif/demo.gif" width="100%">
 
 ## Install
 
@@ -22,37 +22,37 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 
 ### Raid Marks
 
-![raidmarks](./gif/raidmarks.gif)
+<img src="gif/raidmarks.gif" width="200">
 
 Assign any raid marks quickly and easily with the press of a single button, not matter if you're in a group/raid or using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons) There's also a special action to instantly clear all previously assigned raid marks.
 
 ### Abilities
 
-![abilities](./gif/abilities.gif)
+<img src="gif/abilities.gif" width="200">
 
 You can add all your active abilities to rings. Buffs, auras, hunter aspects, or even damage and healing abilities if you really want to - You acn go crazy!
 
 ### Mounts
 
-![mounts](./gif/mounts.gif)
+<img src="gif/mounts.gif" width="200">
 
 All your mounts can be added to rings as well, anything you see in the 'Mounts' tab in your spellbook.
 
 ### Toys & Companions
 
-![toys-companions](./gif/toys-companions.gif)
+<img src="gif/toys-companions.gif" width="200">
 
 Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be added to rings.
 
 ### Professions & General
 
-![professions](./gif/professions.gif)
+<img src="gif/professions.gif" width="200">
 
 Your professions and anything else listed in the 'General' tab of your spellbook are available as well. Excluding passive abilities, obviously.
 
 ### ItemRack Sets
 
-![sets](./gif/sets.gif)
+<img src="gif/sets.gif" width="200">
 
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
 
