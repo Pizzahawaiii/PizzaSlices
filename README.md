@@ -22,7 +22,9 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 
 ### Raid Marks
 
+<kbd>
 <img src="gif/raidmarks.gif" width="300" align="left">
+</kbd>
 
 Assign any raid marks quickly and easily with the press of a single button, not matter if you're in a group/raid or using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons). There's also a special action to instantly clear all previously assigned raid marks.
 <br clear="left"/>
