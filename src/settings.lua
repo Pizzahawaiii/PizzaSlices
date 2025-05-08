@@ -52,6 +52,51 @@ PizzaSlices:RegisterModule('settings', function ()
   table.insert(UISpecialFrames, f:GetName())
 
   -----------------------------------------------------------------------------
+  -- CLOSE BUTTON
+  -----------------------------------------------------------------------------
+
+  f.close = CreateFrame('Button', f:GetName() .. 'Close', f, 'UIPanelButtonTemplate')
+  f.close:SetBackdrop(backdrop)
+  f.close:SetBackdropColor(r.r, r.g, r.b, 0)
+  f.close:SetBackdropBorderColor(r.r, r.g, r.b, .7)
+  f.close:SetNormalTexture('')
+  f.close:SetHighlightTexture('')
+  f.close:SetPushedTexture('')
+  f.close:SetDisabledTexture('')
+  f.close:SetWidth(16)
+  f.close:SetHeight(16)
+  f.close:SetPoint('TOPRIGHT', -10, -10)
+  f.close.tex = f.close:CreateTexture(f.close:GetName() .. 'Tex', 'ARTWORK')
+  f.close.tex:SetWidth(12)
+  f.close.tex:SetHeight(12)
+  f.close.tex:SetPoint('CENTER', 0, 0)
+  f.close.tex:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\close')
+  f.close.tex:SetVertexColor(r.r, r.g, r.b, .7)
+  f.close:SetScript('OnMouseDown', function ()
+    this:SetBackdropColor(r.r, r.g, r.b, .5)
+  end)
+  f.close:SetScript('OnMouseUp', function ()
+    this:SetBackdropColor(r.r, r.g, r.b, .7)
+  end)
+  f.close:SetScript('OnEnter', function ()
+    f.close:SetBackdropColor(r.r, r.g, r.b, .7)
+    f.close:SetBackdropBorderColor(r.r, r.g, r.b, 0)
+    f.close:SetWidth(14)
+    f.close:SetHeight(14)
+    f.close:SetPoint('TOPRIGHT', -11, -11)
+    f.close.tex:SetVertexColor(1, 1, 1, 1)
+  end)
+  f.close:SetScript('OnLeave', function ()
+    f.close:SetBackdropColor(r.r, r.g, r.b, 0)
+    f.close:SetBackdropBorderColor(r.r, r.g, r.b, .7)
+    f.close:SetWidth(16)
+    f.close:SetHeight(16)
+    f.close:SetPoint('TOPRIGHT', -10, -10)
+    f.close.tex:SetVertexColor(r.r, r.g, r.b, .7)
+  end)
+  f.close:SetScript('OnClick', function () f:Hide() end)
+
+  -----------------------------------------------------------------------------
   -- HEADER
   -----------------------------------------------------------------------------
   
