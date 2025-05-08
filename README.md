@@ -35,7 +35,9 @@ You're always more than welcome to ask questions or provide any kind of feedback
 
 ## Acknowledgements
 
-♥️ Thanks to all the beta testers for providing valuable feedback!
+Thanks to [foxlit](https://www.curseforge.com/members/foxlit) for the inspiration! 🚀
+
+Thanks to all the beta testers for providing valuable feedback! ♥️
 
 - Hersi/blu5hit
 - Cliffholger
