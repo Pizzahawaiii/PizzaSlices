@@ -21,7 +21,7 @@ PizzaSlices:RegisterModule('channel', function ()
     end
 
     if not isInChannel then
-      JoinChannelByName(PWB.channelName)
+      JoinChannelByName(PS.channelName)
     end
 
     -- Share our addon version once
