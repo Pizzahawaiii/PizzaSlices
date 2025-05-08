@@ -28,7 +28,6 @@ PizzaSlices:RegisterModule('channel', function ()
     local channelIdx = GetChannelName(PS.channelName)
     if channelIdx > 0 then
       SendChatMessage(PS:GetName() .. ':' .. PS.utils.getVersionNumber(), 'CHANNEL', nil, channelIdx)
-      PS:Print('Shared addon version ' .. PS.utils.getVersion() .. ' in ' .. PS.channelName .. ' channel!')
     end
   end)
 
