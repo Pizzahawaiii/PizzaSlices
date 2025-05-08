@@ -114,6 +114,18 @@ PizzaSlices:RegisterModule('utils', function ()
     return false
   end
 
+  function PS.utils.getVersion()
+    return tostring(GetAddOnMetadata(PS:GetName(), 'Version'))
+  end
+
+  function PS.utils.getVersionNumber()
+    local major, minor, patch = PS.utils.strSplit(PS.utils.getVersion(), '.')
+    major = tonumber(major) or 0
+    minor = tonumber(minor) or 0
+    patch = tonumber(patch) or 0
+    return major * 10000 + minor * 100 + patch
+  end
+
   function PS.utils.hasSuperWoW()
     return SetAutoloot ~= nil
   end

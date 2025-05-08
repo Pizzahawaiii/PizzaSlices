@@ -171,6 +171,7 @@ function PS:Open(ringIdx)
 end
 
 PS:RegisterEvent('ADDON_LOADED')
+PS:RegisterEvent('CHAT_MSG_CHANNEL')
 PS:SetScript('OnEvent', function ()
   if event == 'ADDON_LOADED' and arg1 == PS.name then
     PS:LoadConfig()
@@ -182,6 +183,25 @@ PS:SetScript('OnEvent', function ()
     for _, moduleName in PS.moduleNames do
       if PS[moduleName] and PS[moduleName].init then
         PS[moduleName].init()
+      end
+    end
+  end
+
+  if event == 'CHAT_MSG_CHANNEL' and arg2 ~= UnitName('player') then
+    local _, _, source = string.find(arg4, '(%d+)%.')
+    local channelName
+
+    if source then
+      _, channelName = GetChannelName(source)
+    end
+
+    if channelName == PS.channelName then
+      local _, _, addonName, remoteVersion = string.find(arg1, '(.*)%:(.*)')
+      if addonName == PS:GetName() then
+        if tonumber(remoteVersion) > PS.utils.getVersionNumber() and not PS.updateNotified then
+          PS:Print('New version available! https://github.com/Pizzahawaiii/PizzaSlices')
+          PS.updateNotified = true
+        end
       end
     end
   end

@@ -65,7 +65,7 @@ PizzaSlices:RegisterModule('settings', function ()
   f.version:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
   f.version:SetJustifyH('CENTER')
   f.version:SetPoint('TOP', f.header, 'BOTTOM', -5)
-  f.version:SetText(tostring(GetAddOnMetadata(PS.name, 'Version')))
+  f.version:SetText(PS.utils.getVersion())
   f.version:SetTextColor(1, 1, 1, .7)
 
   -----------------------------------------------------------------------------

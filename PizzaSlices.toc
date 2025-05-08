@@ -14,3 +14,4 @@ src\macro.lua
 src\frame.lua
 src\settings.lua
 src\commands.lua
+src\channel.lua
