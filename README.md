@@ -24,53 +24,42 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 
 <img src="gif/raidmarks.gif" width="300" align="left">
 
-<dl><dd>
-Assign any raid marks quickly and easily with the press of a single button, not matter if you're in a group/raid or using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons) There's also a special action to instantly clear all previously assigned raid marks.
-</dd></dl>
+Assign any raid marks quickly and easily with the press of a single button, not matter if you're in a group/raid or using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons). There's also a special action to instantly clear all previously assigned raid marks.
 <br clear="left"/>
 
 ### Abilities
 
 <img src="gif/abilities.gif" width="300" align="left">
 
-<dl><dd>
 You can add all your active abilities to rings. Buffs, auras, hunter aspects, or even damage and healing abilities if you really want to - go crazy!
-</dd></dl>
 <br clear="left"/>
 
 ### Mounts
 
 <img src="gif/mounts.gif" width="300" align="left">
 
-<dl><dd>
 All your mounts can be added to rings as well, anything you see in the 'Mounts' tab in your spellbook.
-</dd></dl>
 <br clear="left"/>
 
 ### Toys & Companions
 
 <img src="gif/toys-companions.gif" width="300" align="left">
 
-<dl><dd>
 Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be added to rings.
-</dd></dl>
 <br clear="left"/>
 
 ### Professions & General
 
 <img src="gif/professions.gif" width="300" align="left">
-<dl><dd>
+
 Your professions and anything else listed in the 'General' tab of your spellbook are available as well. Excluding passive abilities, obviously.
-</dd></dl>
 <br clear="left"/>
 
 ### ItemRack Sets
 
 <img src="gif/sets.gif" width="300" align="left">
 
-<dl><dd>
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
-</dd></dl>
 <br clear="left"/>
 
 ## Settings
