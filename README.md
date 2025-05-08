@@ -22,7 +22,7 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 
 ### Raid Marks
 
-<kbd>
+<kbd align="left">
 <img src="gif/raidmarks.gif" width="300" align="left">
 </kbd>
 
