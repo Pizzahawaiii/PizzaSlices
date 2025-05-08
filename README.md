@@ -2,7 +2,7 @@
 
 Radial action menus for [TurtleWoW](https://turtle-wow.org). A simplified [OPie](https://www.curseforge.com/wow/addons/opie) clone.
 
-<img src="https://pouch.jumpshare.com/preview/tpKWJ-WD9L3k6gRgEA-z56Pbu9eSaT0CkxdtKGQcmzLHk4qvgAfRGB8b5ZBu8lTVVeFDbkK_RtuWW2rfdLprTNo9cQLvPcDAJFF88W3xzK4" width="100%">
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/demo.gif" width="100%">
 
 ## Install
 
