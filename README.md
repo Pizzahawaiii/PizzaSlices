@@ -32,35 +32,35 @@ Assign any raid marks quickly and easily with the press of a single button, not 
 <img src="gif/abilities.gif" width="300" align="left" hspace="10">
 
 You can add all your active abilities to rings. Buffs, auras, hunter aspects, or even damage and healing abilities if you really want to - You acn go crazy!
-<p clear="both">
+<br clear="left"/>
 
 ### Mounts
 
 <img src="gif/mounts.gif" width="300" align="left" hspace="10">
 
 All your mounts can be added to rings as well, anything you see in the 'Mounts' tab in your spellbook.
-<p clear="both">
+<br clear="left"/>
 
 ### Toys & Companions
 
 <img src="gif/toys-companions.gif" width="300" align="left" hspace="10">
 
 Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be added to rings.
-<p clear="both">
+<br clear="left"/>
 
 ### Professions & General
 
 <img src="gif/professions.gif" width="300" align="left" hspace="10">
 
 Your professions and anything else listed in the 'General' tab of your spellbook are available as well. Excluding passive abilities, obviously.
-<p clear="both">
+<br clear="left"/>
 
 ### ItemRack Sets
 
 <img src="gif/sets.gif" width="300" align="left" hspace="10">
 
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
-<p clear="both">
+<br clear="left"/>
 
 ## Settings
 
