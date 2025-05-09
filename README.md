@@ -63,7 +63,7 @@ Your professions and anything else listed in the 'General' tab of your spellbook
 ### Macros
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/macros.gif" width="384" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="height" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 You can also add macros to rings if you need even more flexibility.
 <br clear="left"/>
@@ -71,7 +71,7 @@ You can also add macros to rings if you need even more flexibility.
 ### ItemRack Sets
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/sets.gif" height="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="height" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
 <br clear="left"/>
