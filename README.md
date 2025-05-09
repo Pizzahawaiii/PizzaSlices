@@ -22,48 +22,48 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 
 ### Raid Marks
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/raidmarks.gif" width="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/raidmarks.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 Assign any raid marks quickly and easily with the press of a single button, not matter if you're using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons) or in a group/raid. There's also a special action to instantly clear all previously assigned raid marks.
 <br clear="left"/>
 
 ### Abilities
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/abilities.gif" width="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/abilities.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 You can add all your active abilities to rings. Buffs, auras, hunter aspects, or even damage and healing abilities if you really want to - go crazy!
 <br clear="left"/>
 
 ### Mounts
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/mounts.gif" width="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/mounts.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 All your mounts can be added to rings as well, anything you see in the 'Mounts' tab in your spellbook.
 <br clear="left"/>
 
 ### Toys & Companions
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/toys-companions.gif" width="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/toys-companions.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be added to rings.
 <br clear="left"/>
 
 ### Professions & General
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/professions.gif" width="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/professions.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 Your professions and anything else listed in the 'General' tab of your spellbook are available as well. Excluding passive abilities, obviously.
 <br clear="left"/>
 
 ### ItemRack Sets
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/sets.gif" width="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/sets.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="height" align="left" />
 
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
 <br clear="left"/>
