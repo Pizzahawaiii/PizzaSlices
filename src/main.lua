@@ -109,10 +109,17 @@ local actions = {
     local soloRaidMark = PS.utils.hasSuperWoW() and isSolo
 
     if v == 'clear' then
-      for i = 1, 8, 1 do
-        if UnitExists('mark' .. i) then
-          SetRaidTarget('mark' .. i, 0, soloRaidMark)
+      if PS.utils.hasSuperWoW() then
+        for i = 1, 8 do
+          if UnitExists('mark' .. i) then
+            SetRaidTarget('mark' .. i, 0, soloRaidMark)
+          end
         end
+      else
+        for i = 1, 8 do
+          SetRaidTarget('player', i, soloRaidMark)
+        end
+        PS.clearRaidTargetAt = GetTime() + .15
       end
     else
       SetRaidTarget('target', tonumber(v), soloRaidMark)
@@ -204,5 +211,12 @@ PS:SetScript('OnEvent', function ()
         end
       end
     end
+  end
+end)
+
+PS:SetScript('OnUpdate', function ()
+  if PS.clearRaidTargetAt and GetTime() > PS.clearRaidTargetAt then
+    SetRaidTarget('player', 0)
+    PS.clearRaidTargetAt = nil
   end
 end)
