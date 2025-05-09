@@ -60,6 +60,14 @@ Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be add
 Your professions and anything else listed in the 'General' tab of your spellbook are available as well. Excluding passive abilities, obviously.
 <br clear="left"/>
 
+### Macros
+
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/macros.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="height" align="left" />
+
+You can also add macros to rings if you need even more flexibility.
+<br clear="left"/>
+
 ### ItemRack Sets
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/sets.gif" height="300" align="left" />
