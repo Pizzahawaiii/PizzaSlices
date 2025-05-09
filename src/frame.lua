@@ -147,16 +147,42 @@ PizzaSlices:RegisterModule('frame', function ()
     return x, y
   end
 
-  local function calculateTargetAngle()
-    local circx, circy = getCircleCenterCoords()
-    local cursx, cursy = GetCursorPosition()
-    local x = cursx - circx
-    local y = cursy - circy
+  local function calculateAngle(x1, y1, x2, y2)
+    local x = x1 - x2
+    local y = y1 - y2
 
     local radAngle = (math.atan2(y, x) - math.atan2(1, 0)) * -1
     local angle = radAngle * 180 / math.pi
 
-    return PS.utils.mod(angle, 360), PS.utils.distance(circx, circy, cursx, cursy)
+    return PS.utils.mod(angle, 360), PS.utils.distance(x1, y1, x2, y2)
+  end
+
+  local function updateTargetAngle()
+  end
+
+  local pcursx = nil
+  local pcursy = nil
+  local function updateTargetAngle(controller)
+    if controller then
+      -- On controller, use mouse move delta to calculate the target angle.
+      local cursx, cursy = GetCursorPosition()
+      if pcursx and pcursy then
+        local distance = PS.utils.distance(cursx, cursy, pcursx, pcursy)
+        if distance > 3 then
+          PS.frame.targetAngle = calculateAngle(cursx, cursy, pcursx, pcursy)
+        end
+      end
+      pcursx = cursx
+      pcursy = cursy
+    else
+      -- On mouse, simply use the current mouse cursor position
+      local cursx, cursy = GetCursorPosition()
+      local circx, circy = getCircleCenterCoords()
+      local angle, radius = calculateAngle(cursx, cursy, circx, circy)
+      if radius > (12 * sqrt(C.scale)) then
+        PS.frame.targetAngle = angle
+      end
+    end
   end
 
   local function normalize(angle, max)
@@ -172,11 +198,7 @@ PizzaSlices:RegisterModule('frame', function ()
   end
 
   local function rotatePointer()
-    local angle, radius = calculateTargetAngle()
-
-    if radius > (12 * sqrt(C.scale)) then
-      PS.frame.targetAngle = angle
-    end
+    updateTargetAngle()
 
     if not PS.frame.targetAngle then 
       if not PS.frame.pointerAngle then
