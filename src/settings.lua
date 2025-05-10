@@ -11,6 +11,11 @@ PizzaSlices:RegisterModule('settings', function ()
     edgeFile = "Interface\\BUTTONS\\WHITE8X8", edgeSize = 1,
     insets = {left = -1, right = -1, top = -1, bottom = -1},
   }
+  local sliderBackdrop = {
+    bgFile = "Interface\\Buttons\\UI-SliderBar-Background", tile = true, tileSize = 8,
+    edgeFile = "Interface\\Buttons\\UI-SliderBar-Border", edgeSize = 8,
+    insets = {left = 3, right = 3, top = 6, bottom = 6},
+  }
 
   local modifiers = {
     ["ALT"]   = "ALT-",
@@ -197,12 +202,47 @@ PizzaSlices:RegisterModule('settings', function ()
   general:SetBackdropBorderColor(0, 0, 0, 0)
   general:Hide()
 
+  do -- Slider: animation duration
+    local frame = CreateFrame('Frame', general:GetName() .. 'AnimationDuration', general)
+    frame:SetFrameStrata('DIALOG')
+    frame:SetWidth(f:GetWidth() * .5)
+    frame:SetHeight(22)
+    frame:SetPoint('TOP', general, 'TOP', 0, -30)
+    frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.label:SetJustifyH('LEFT')
+    frame.label:SetPoint('LEFT', 0, 1)
+    frame.label:SetText('Animation duration')
+    frame.slider = CreateFrame('Slider', frame:GetName() .. 'Slider', frame)
+    frame.slider:SetPoint('RIGHT', 0, 0)
+    frame.slider:SetWidth(150)
+    frame.slider:SetHeight(16)
+    frame.slider:SetBackdrop(backdrop)
+    frame.slider:SetBackdropColor(0, 0, 0, 0)
+    frame.slider:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.slider:SetThumbTexture('Interface\\BUTTONS\\WHITE8X8')
+    frame.slider:SetOrientation('HORIZONTAL')
+    frame.slider:SetMinMaxValues(0, 200)
+    frame.slider:SetValue(C.animation.duration * 100)
+    frame.slider:SetValueStep(5)
+    frame.slider:SetScript('OnValueChanged', function ()
+      _G.PizzaSlices_config.animation.duration = this:GetValue() / 100
+      frame.valuelabel:SetText(frame.slider:GetValue() .. '%')
+    end)
+    frame.valuelabel = frame:CreateFontString(frame:GetName() .. 'Valuelabel', 'DIALOG', 'GameFontWhite')
+    frame.valuelabel:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+    frame.valuelabel:SetJustifyH('LEFT')
+    frame.valuelabel:SetPoint('LEFT', frame.slider, 'RIGHT', 5, 0)
+    frame.valuelabel:SetText(frame.slider:GetValue() .. '%')
+    general.animationDuration = frame
+  end
+
   do -- Checkbox: Position ring at mouse
     local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralMousePos', general)
     frame:SetFrameStrata('DIALOG')
-    frame:SetWidth(f:GetWidth() * .4)
+    frame:SetWidth(f:GetWidth() * .5)
     frame:SetHeight(22)
-    frame:SetPoint('TOP', general, 'TOP', 0, -30)
+    frame:SetPoint('TOP', general.animationDuration, 'TOP', 0, -30)
     frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
     frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
     frame.label:SetJustifyH('LEFT')
@@ -227,7 +267,7 @@ PizzaSlices:RegisterModule('settings', function ()
   do -- Dropdown: Ring close rotation animation
     local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralCloseRotation', general)
     frame:SetFrameStrata('DIALOG')
-    frame:SetWidth(f:GetWidth() * .4)
+    frame:SetWidth(f:GetWidth() * .5)
     frame:SetHeight(22)
     frame:SetPoint('TOP', general.mousePos, 'TOP', 0, -32)
     frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
