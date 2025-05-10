@@ -886,6 +886,8 @@ PizzaSlices:RegisterModule('settings', function ()
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
         if slice.spellId then
           GameTooltip:SetSpell(slice.spellId, 'spell')
+        elseif slice.itemId then
+          GameTooltip:SetHyperlink('item:' .. slice.itemId)
         else
           GameTooltip:AddLine(PS.Colors.secondary .. slice.name)
         end
@@ -965,11 +967,14 @@ PizzaSlices:RegisterModule('settings', function ()
       end
 
       local name = slice.name
+      local itemId = slice.itemId
       local spellId = slice.spellId
       f:SetScript('OnEnter', function ()
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
         if spellId then
           GameTooltip:SetSpell(spellId, 'spell')
+        elseif itemId then
+          GameTooltip:SetHyperlink('item:' .. itemId)
         else
           GameTooltip:AddLine(PS.Colors.secondary .. name)
         end

@@ -203,10 +203,10 @@ PizzaSlices:RegisterModule('slices', function ()
               local tex = GetContainerItemInfo(bag, slot)
               table.insert(slices, {
                 name = name,
-                id = id,
                 tex = tex,
                 color = PS.utils.getRandomColor(),
                 action = 'item:<id>',
+                itemId = id,
               })
               added[id] = true
             end
