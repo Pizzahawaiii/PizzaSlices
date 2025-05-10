@@ -253,6 +253,7 @@ PizzaSlices:RegisterModule('slices', function ()
   -- login phase. Once they have been populated, reload all 
   -- slices. Then stop listening to SPELLS_CHANGED because 
   -- apparently it's being fired left and right.
+  PS.slices:RegisterEvent('BAG_UPDATE')
   PS.slices:RegisterEvent('UPDATE_MACROS')
   PS.slices:RegisterEvent('SPELLS_CHANGED')
   PS.slices:SetScript('OnEvent', function ()
