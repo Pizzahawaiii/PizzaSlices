@@ -125,6 +125,23 @@ PizzaSlices:RegisterModule('frame', function ()
       f.iglow:SetAlpha(0)
       f.iglow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
 
+      if string.sub(slice.action, 1, 5) == 'item:' then
+        if not f.itemCount then
+          f.itemCount = f:CreateFontString(f:GetName() .. 'Count', 'DIALOG', 'GameFontWhite')
+          f.itemCount:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+          f.itemCount:SetJustifyH('RIGHT')
+          f.itemCount:SetJustifyV('BOTTOM')
+          f.itemCount:SetPoint('TOPLEFT', 5, -5)
+          f.itemCount:SetPoint('BOTTOMRIGHT', -5, 5)
+        end
+        local count = PS.utils.getItemCount(slice.name)
+        if count then
+          SetItemButtonCount(f, count)
+        end
+      elseif f.itemCount then
+        f.itemCount:Hide()
+      end
+
       ring.slices[idx].frame = f
       ring.slices[idx].selected = false
     end

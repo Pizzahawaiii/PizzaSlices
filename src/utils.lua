@@ -116,6 +116,24 @@ PizzaSlices:RegisterModule('utils', function ()
     end
   end
 
+  function PS.utils.getItemCount(name)
+    local count = 0
+    for bag = 0, 4 do
+      for slot = 1, GetContainerNumSlots(bag) do
+        local link = GetContainerItemLink(bag, slot)
+        if link then
+          local _, _, id = string.find(link, '(%d+):')
+          local itemName = GetItemInfo(id)
+          if itemName and itemName ~= '' and string.lower(itemName) == string.lower(name) then
+            local _, c = GetContainerItemInfo(bag, slot)
+            count = count + c
+          end
+        end
+      end
+    end
+    return count
+  end
+
   function PS.utils.hasSpell(spellName)
     for i = 1, GetNumSpellTabs() do
       local _, _, offset, spellCount = GetSpellTabInfo(i)
