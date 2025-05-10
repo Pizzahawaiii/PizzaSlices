@@ -144,6 +144,13 @@ local actions = {
       runMacro(v)
     end
   end,
+
+  item = function (v, slice)
+    local bag, slot = PS.utils.findItem(slice.name)
+    if bag and slot then
+      UseContainerItem(bag, slot)
+    end
+  end,
 }
 
 function PS:TriggerSliceAction(idx)

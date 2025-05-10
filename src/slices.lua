@@ -187,15 +187,47 @@ PizzaSlices:RegisterModule('slices', function ()
     return slices
   end
 
+  local function getItemSlices()
+    local slices = {}
+    local added = {}
+
+    for bag = 0, 4 do
+      local slots = GetContainerNumSlots(bag)
+      for slot = 1, slots do
+        local link = GetContainerItemLink(bag, slot)
+        if link then
+          local _, _, id = string.find(link, "item:(%d+):%d+:%d+:%d+")
+          if id and not added[id] then
+            local name, _, _, _, _, type = GetItemInfo(id)
+            if PS.scanner.isUsableItem(id) and type ~= 'Quest' and type ~= 'Trade Goods' then
+              local tex = GetContainerItemInfo(bag, slot)
+              table.insert(slices, {
+                name = name,
+                id = id,
+                tex = tex,
+                color = PS.utils.getRandomColor(),
+                action = 'item:<id>',
+              })
+              added[id] = true
+            end
+          end
+        end
+      end
+    end
+
+    return slices
+  end
+
   local getSlices = {
-    ['General'] = getSpellSlices('General'),
     ['Abilities'] = getSpellSlices(),
-    ['Mounts'] = getSpellSlices('ZMounts'),
     ['Companions'] = getSpellSlices('ZzCompanions'),
-    ['Toys'] = getSpellSlices('ZzzzToys'),
-    ['Raid Marks'] = getRaidmarkSlices,
-    ['Macros'] = getMacroSlices,
+    ['General'] = getSpellSlices('General'),
     ['ItemRack Sets'] = getItemrackSlices,
+    ['Items'] = getItemSlices,
+    ['Macros'] = getMacroSlices,
+    ['Mounts'] = getSpellSlices('ZMounts'),
+    ['Raid Marks'] = getRaidmarkSlices,
+    ['Toys'] = getSpellSlices('ZzzzToys'),
   }
 
   function PS.slices.load(withSpells)
