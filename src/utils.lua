@@ -24,6 +24,19 @@ PizzaSlices:RegisterModule('utils', function ()
     return count
   end
 
+  function PS.utils.toRoughTimeString(seconds)
+    if seconds < 60 then return seconds .. '' end
+
+    local minutes = seconds / 60
+    if minutes < 60 then return math.floor(minutes) .. 'm' end
+
+    local hours = minutes / 60
+    if hours < 24 then return '~ ' .. math.floor(hours) .. 'h' end
+
+    local days = hours / 24
+    return '~ ' .. math.floor(days + 0.5) .. 'd'
+  end
+
   function PS.utils.strSplit(str, delimiter, asTable)
     if not str then return nil end
     local delimiter, fields = delimiter or ':', {}

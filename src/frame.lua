@@ -76,6 +76,52 @@ PizzaSlices:RegisterModule('frame', function ()
       f:SetAlpha(0)
       f:Show()
 
+      if not f.cd then
+        f.cd = CreateFrame('Model', f:GetName() .. 'Cooldown', f, 'CooldownFrameTemplate')
+        f.cd.noCooldownCount = true
+      end
+
+      if not f.cdtextFrame then
+        f.cdtextFrame = CreateFrame('Frame', f:GetName() .. 'CooldownTextFrame', f)
+        f.cdtextFrame:SetAllPoints(f)
+        f.cdtextFrame:SetFrameLevel(f.cd:GetFrameLevel() + 1)
+      end
+
+      if not f.cdtext then
+        f.cdtext = f.cdtextFrame:CreateFontString(f:GetName() .. 'CooldownText', 'OVERLAY', 'GameFontWhite')
+        f.cdtext:SetPoint('CENTER', 0, 0)
+        f.cdtext:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+        f.cdtext:SetTextColor(1, 1, 1, 1)
+        f.cdtext:Hide()
+      end
+
+      if slice.spellId or slice.itemId then
+        local start, duration, enable
+
+        if slice.spellId then
+          start, duration, enable = GetSpellCooldown(slice.spellId, 'BOOKTYPE_SPELL')
+        else
+          local bag, slot = PS.utils.findItem(slice.name)
+          if bag and slot then
+            start, duration, enable = GetContainerItemCooldown(bag, slot)
+          end
+        end
+
+        if start and duration and duration > 0 then
+          f.cd:Show()
+          CooldownFrame_SetTimer(f.cd, start, duration, enable)
+          f.cdtext:Show()
+          f.cdtext.startTime = start
+          f.cdtext.duration = duration
+        else
+          f.cd:Hide()
+          f.cdtext:Hide()
+        end
+      else
+        f.cd:Hide()
+        f.cdtext:Hide()
+      end
+
       f.radius = radius
       f.startAngle = angle
       f.angle = angle
@@ -437,5 +483,24 @@ PizzaSlices:RegisterModule('frame', function ()
     if (this.tick or 1/PS.fps) > now then return else this.tick = now + 1/PS.fps end
 
     animate()
+
+    for _, slice in ipairs(PS.ring.slices) do
+      local f = slice.frame
+      if f and f.cdtext and f.cdtext:IsShown() then
+        local now = GetTime()
+        local remaining = (f.cdtext.startTime + f.cdtext.duration) - now
+        if remaining <= 0 then
+          f.cdtext:Hide()
+        else
+          if remaining < 3 then
+            f.cdtext:SetText(string.format('%.1f', remaining))
+            f.cdtext:SetTextColor(1, 0, 0, 1)
+          else
+            f.cdtext:SetText(PS.utils.toRoughTimeString(math.ceil(remaining)))
+            f.cdtext:SetTextColor(1, 1, 1, 1)
+          end
+        end
+      end
+    end
   end)
 end)
