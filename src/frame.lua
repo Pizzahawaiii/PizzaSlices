@@ -76,10 +76,9 @@ PizzaSlices:RegisterModule('frame', function ()
       f:SetAlpha(0)
       f:Show()
 
-      f.noCooldownCount = true
-
       if not f.cd then
         f.cd = CreateFrame('Model', f:GetName() .. 'Cooldown', f, 'CooldownFrameTemplate')
+        f.cd.noCooldownCount = true
       end
 
       if not f.cdtextFrame then
