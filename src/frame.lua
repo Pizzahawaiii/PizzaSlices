@@ -223,9 +223,6 @@ PizzaSlices:RegisterModule('frame', function ()
     return PS.utils.mod(angle, 360), PS.utils.distance(x1, y1, x2, y2)
   end
 
-  local function updateTargetAngle()
-  end
-
   local pcursx = nil
   local pcursy = nil
   local function updateTargetAngle(controller)
