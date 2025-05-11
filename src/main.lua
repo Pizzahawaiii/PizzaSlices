@@ -148,7 +148,20 @@ local actions = {
   item = function (v, slice)
     local bag, slot = PS.utils.findItem(slice.name)
     if bag and slot then
-      UseContainerItem(bag, slot)
+      if IsShiftKeyDown() then
+        PickupContainerItem(bag, slot)
+        if CursorHasItem() then
+          local link = GetContainerItemLink(bag, slot)
+          if link then
+            name = string.match(link, '%[(.+)%]')
+            if name then
+              UseItemByName(name)
+            end
+          end
+        end
+      else
+        UseContainerItem(bag, slot)
+      end
     end
   end,
 }
