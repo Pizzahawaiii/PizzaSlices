@@ -1183,6 +1183,7 @@ PizzaSlices:RegisterModule('settings', function ()
           f.clone = clone
         end
 
+        clone:SetAlpha(0.5)
         clone:ClearAllPoints()
         clone:SetPoint('CENTER', 0, 0)
         clone:Show()
