@@ -2,6 +2,29 @@ PizzaSlices:RegisterModule('rings', function ()
   PS.rings = {}
   PS.rings.default = {}
 
+  function PS.rings.migrate()
+    if not PizzaSlices_rings then return end
+
+    local version = PS.utils.getVersionNumber()
+
+    if version < 10201 then
+      for ringIdx, ring in ipairs(PizzaSlices_rings) do
+        for sliceIdx, slice in ipairs(ring.slices) do
+          if string.sub(slice.action, 1, 5) == 'item:' then
+            if slice.id then
+              if not slice.itemId then
+                _G.PizzaSlices_rings[ringIdx].slices[sliceIdx].itemId = slice.id
+              end
+              slice.id = nil
+            end
+          end
+        end
+      end
+    end
+
+    PS.rings.migrated = true
+  end
+
   function PS.rings.load(withSpells)
     -- (Re)populate default rings
     PS.rings.default = {}
@@ -14,6 +37,10 @@ PizzaSlices:RegisterModule('rings', function ()
           slices = slices,
         })
       end
+    end
+
+    if withSpells and not PS.rings.migrated then
+      PS.rings.migrate()
     end
     
     -- If player doesn't have any rings, use the default ones initially.
