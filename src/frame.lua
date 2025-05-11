@@ -99,7 +99,10 @@ PizzaSlices:RegisterModule('frame', function ()
         local start, duration, enable
 
         if slice.spellId then
-          start, duration, enable = GetSpellCooldown(slice.spellId, 'BOOKTYPE_SPELL')
+          local _, spellSlot = PS.utils.hasSpell(slice.name)
+          if spellSlot then
+            start, duration, enable = GetSpellCooldown(spellSlot, 'BOOKTYPE_SPELL')
+          end
         else
           local bag, slot = PS.utils.findItem(slice.name)
           if bag and slot then

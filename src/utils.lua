@@ -147,12 +147,14 @@ PizzaSlices:RegisterModule('utils', function ()
     return count
   end
 
-  function PS.utils.hasSpell(spellName)
+  function PS.utils.hasSpell(name, rank)
     for i = 1, GetNumSpellTabs() do
       local _, _, offset, spellCount = GetSpellTabInfo(i)
-      for spellId = offset + 1, offset + spellCount do
-        if GetSpellName(spellId, 'spell') == spellName then
-          return true, spellId
+      for spellSlot = offset + spellCount, offset + 1, -1 do
+        local spellName, spellRank = GetSpellName(spellSlot, 'spell')
+        if spellName == name then
+          if not rank then return true, spellSlot end
+          if spellRank == rank then return true, spellSlot end
         end
       end
     end
