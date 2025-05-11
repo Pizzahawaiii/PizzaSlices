@@ -853,6 +853,20 @@ PizzaSlices:RegisterModule('settings', function ()
   function loadRingSlices()
     local r = rings.edit.content.ring
 
+    if not r.placeholder then
+      r.placeholder = CreateFrame('Frame', r:GetName() .. 'Placeholder', r)
+      r.placeholder:SetWidth(42)
+      r.placeholder:SetHeight(2)
+      r.placeholder:SetBackdrop({
+        bgFile = "Interface\\BUTTONS\\WHITE8X8",
+        edgeFile = "Interface\\BUTTONS\\WHITE8X8",
+        edgeSize = 1,
+      })
+      r.placeholder:SetBackdropColor(0, 1, 0, 0.5)
+      r.placeholder:SetBackdropBorderColor(0, 1, 0, 0.5)
+      r.placeholder:Hide()
+    end
+
     for _, frame in r.slices do frame:Hide() end
 
     for i, sl in ipairs(rings.edit.ring.slices) do
@@ -882,6 +896,8 @@ PizzaSlices:RegisterModule('settings', function ()
       f:Show()
       f:ClearAllPoints()
       f:SetPoint('TOP', 0, (idx - 1) * -40 - 4)
+
+      -- Tooltip
       f:SetScript('OnEnter', function ()
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
         if slice.spellId then
@@ -896,22 +912,177 @@ PizzaSlices:RegisterModule('settings', function ()
       f:SetScript('OnLeave', function ()
         GameTooltip:Hide()
       end)
+
+      -- Drag-n-Drop logic
       f:SetScript('OnDragStart', function ()
+        f.isDragging = true
         rings.edit.content.browser:Hide()
         rings.edit.content.drop:Show()
+        r.placeholder:Show()
         f:StartMoving()
+        f:SetAlpha(0.5)
       end)
       f:SetScript('OnDragStop', function ()
+        f.isDragging = false
+
+        f:StopMovingOrSizing()
+        f:SetAlpha(1)
+
         local removed = handleDrop(slice, idx)
         if removed then
+          table.remove(r.slices, idx)
           f:Hide()
-          loadRingSlices()
         end
-        f:StopMovingOrSizing()
-        f:ClearAllPoints()
-        f:SetPoint('TOP', 0, (idx - 1) * -40 - 2)
         rings.edit.content.browser:Show()
         rings.edit.content.drop:Hide()
+
+        if not removed then
+          local scale = UIParent:GetEffectiveScale()
+          local cursx, cursy = GetCursorPosition()
+          cursx = cursx / scale
+          cursy = cursy / scale
+          local ringLeftX = r:GetLeft()
+          local ringRightX = r:GetRight()
+          local ringTopY = r:GetTop()
+          local ringBottomY = r:GetBottom()
+          local sliceCount = PS.utils.length(r.slices)
+          local lastSlice = r.slices[sliceCount]
+          local lastSliceBottomY = lastSlice and lastSlice:GetBottom()
+          local cursorWithinRing = cursx >= ringLeftX and cursx <= ringRightX and cursy <= ringTopY and cursy >= ringBottomY
+          local inserted = false
+
+          if cursorWithinRing then
+            if cursy <= lastSliceBottomY and cursy >= ringBottomY then
+              table.remove(rings.edit.ring.slices, idx)
+              table.insert(rings.edit.ring.slices, slice)
+              inserted = true
+            else
+              for targetIdx, targetFrame in ipairs(r.slices) do
+                if targetFrame ~= f then
+                  local targetTop = targetFrame:GetTop()
+                  local targetBottom = targetFrame:GetBottom()
+                  local targetMid = targetTop - (targetFrame:GetHeight() / 2)
+
+                  -- Check if cursor is on the slice
+                  if cursy <= targetTop and cursy >= targetBottom then
+                    local insertionIdx = targetIdx
+                    if cursy > targetMid then
+                      -- Cursor is in the top half, insert above
+                      if idx < targetIdx then
+                        -- Adjust for downward drag
+                        insertionIdx = targetIdx - 1
+                      end
+                    else
+                      -- Cursor is in the bottom half, insert below
+                      if idx >= targetIdx then
+                        -- Adjust for upward drag
+                        insertionIdx = targetIdx + 1
+                      end
+                    end
+
+                    table.remove(rings.edit.ring.slices, idx)
+                    table.insert(rings.edit.ring.slices, insertionIdx, slice)
+                    inserted = true
+                    break
+                  end
+
+                  -- Check if cursor is in the gap below this slice
+                  if targetIdx < sliceCount then
+                    local nextFrame = r.slices[targetIdx + 1]
+                    local nextTop = nextFrame:GetTop()
+                    if cursy > nextTop and cursy < targetBottom then
+                      local insertionIdx = targetIdx + 1
+                      if idx < targetIdx then
+                        -- Adjust for downward drag
+                        insertionIdx = targetIdx
+                      end
+                      table.remove(rings.edit.ring.slices, idx)
+                      table.insert(rings.edit.ring.slices, insertionIdx, slice)
+                      inserted = true
+                      break
+                    end
+                  end
+                end
+              end
+            end
+          end
+
+          if not inserted then
+            f:ClearAllPoints()
+            f:SetPoint('TOP', 0, (idx - 1) * -40 - 2)
+          end
+        end
+
+        r.placeholder:Hide()
+        loadRingSlices()
+      end)
+      f:SetScript('OnUpdate', function ()
+        if not f.isDragging then return end
+
+        local scale = UIParent:GetEffectiveScale()
+        local cursx, cursy = GetCursorPosition()
+        cursx = cursx / scale
+        cursy = cursy / scale
+
+        local ringLeftX = r:GetLeft()
+        local ringRightX = r:GetRight()
+        local ringTopY = r:GetTop()
+        local ringBottomY = r:GetBottom()
+        local sliceCount = PS.utils.length(r.slices)
+        local lastSlice = r.slices[sliceCount]
+        local lastSliceBottomY = lastSlice and lastSlice:GetBottom()
+        local cursorWithinRing = cursx >= ringLeftX and cursx <= ringRightX and cursy <= ringTopY and cursy >= ringBottomY
+
+        local placeholderPositioned = false
+        if cursorWithinRing then
+          if lastSliceBottomY and cursy < lastSliceBottomY then
+            r.placeholder:ClearAllPoints()
+            r.placeholder:SetPoint('TOP', 0, sliceCount * -40 - 1)
+            r.placeholder:Show()
+            placeholderPositioned = true
+          else
+            for targetIdx, targetFrame in ipairs(r.slices) do
+              if targetFrame ~= f then
+                local targetTop = targetFrame:GetTop()
+                local targetBottom = targetFrame:GetBottom()
+
+                -- Check if cursor is on the slice
+                if cursy <= targetTop and cursy >= targetBottom then
+                  r.placeholder:ClearAllPoints()
+
+                  if cursy > (targetTop - targetFrame:GetHeight() / 2) then
+                    -- Cursor is in the top half, position placeholder above
+                    r.placeholder:SetPoint('TOP', 0, (targetIdx - 1) * -40 - 1)
+                  else
+                    -- Cursor is in the bottom half, position placeholder below
+                    r.placeholder:SetPoint('TOP', 0, targetIdx * -40 - 1)
+                  end
+
+                  r.placeholder:Show()
+                  placeholderPositioned = true
+                  break
+                end
+
+                -- Check if cursor is in the gap below this slice
+                if targetIdx < sliceCount then
+                  local nextFrame = r.slices[targetIdx + 1]
+                  local nextTop = nextFrame:GetTop()
+                  if cursy > nextTop and cursy < targetBottom then
+                    r.placeholder:ClearAllPoints()
+                    r.placeholder:SetPoint('TOP', 0, targetIdx * -40 - 1)
+                    r.placeholder:Show()
+                    placeholderPositioned = true
+                    break
+                  end
+                end
+              end
+            end
+          end
+        end
+
+        if not placeholderPositioned then
+          r.placeholder:Hide()
+        end
       end)
 
       if not f.tex then
