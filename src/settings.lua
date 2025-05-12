@@ -1096,16 +1096,18 @@ PizzaSlices:RegisterModule('settings', function ()
     local slices = rings.edit.ring.slices
     local dropFrame = rings.edit.content.drop
     local ringdropFrame = rings.edit.content.ringdrop
+    local success = false
 
     if MouseIsOver(dropFrame) and dropFrame:IsVisible() then
       table.remove(slices, sliceIdx)
-      return true
+      success = true
     elseif MouseIsOver(ringdropFrame) and ringdropFrame:IsVisible() then
       table.insert(slices, slice)
-      loadRingSlices()
-      return true
+      success = true
     end
-    return false
+
+    loadRingSlices()
+    return success
   end
 
   function showBrowserSlices(slices)
