@@ -101,6 +101,9 @@ end
 local actions = {
   spell = function (v, slice)
     local spellName = v == '<name>' and slice.name or v
+    if slice.rank then
+      spellName = spellName .. '(' .. slice.rank .. ')'
+    end
     CastSpellByName(spellName)
   end,
 
