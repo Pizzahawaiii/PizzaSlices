@@ -2,7 +2,7 @@
 ## Title: |cffa050ffPizza|cffffffffSlices
 ## Author: Pizzahawaii
 ## Notes: Radial action menus for spells, mounts, macros, raid markers, and more
-## Version: 1.4.0
+## Version: 1.4.1
 ## SavedVariablesPerCharacter: PizzaSlices_config, PizzaSlices_rings
 
 src\main.lua
