@@ -83,11 +83,9 @@ PizzaSlices:RegisterModule('slices', function ()
     end
 
     local function includeSpell(spellName, spellRank)
-      if string.find(spellRank, 'Passive') then return false end
-      if spellName == 'Hardcore' then return false end
       if spellName == 'Summon Warhorse' then return false end
       if spellName == 'Summon Charger' then return false end
-      return true
+      return PS.utils.isActiveSpell(spellName, spellRank)
     end
 
     return function ()

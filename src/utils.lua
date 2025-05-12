@@ -162,6 +162,12 @@ PizzaSlices:RegisterModule('utils', function ()
     return false
   end
 
+  function PS.utils.isActiveSpell(name, rank)
+    if string.find(rank, 'Passive') then return false end
+    if name == 'Hardcore' then return false end
+    return true
+  end
+
   function PS.utils.getVersion()
     return tostring(GetAddOnMetadata(PS:GetName(), 'Version'))
   end
