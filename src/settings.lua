@@ -492,10 +492,21 @@ PizzaSlices:RegisterModule('settings', function ()
   local currentPages = {}
   local spellsPerPage = 12
 
+  function HookScript(f, script, func)
+    local prev = f:GetScript(script)
+    f:SetScript(script, function(a1,a2,a3,a4,a5,a6,a7,a8,a9)
+      if prev then prev(a1,a2,a3,a4,a5,a6,a7,a8,a9) end
+      func(a1,a2,a3,a4,a5,a6,a7,a8,a9)
+    end)
+  end
+
   -- Keep track of active spellbook tab
   for i = 1, GetNumSpellTabs() do
     local tabButton = _G["SpellBookSkillLineTab" .. i]
     if tabButton then
+      if not tabButton.HookScript then
+        tabButton.HookScript = HookScript
+      end
       local idx = i
       currentPages[idx] = 1
       tabButton:HookScript("OnClick", function()
@@ -505,9 +516,15 @@ PizzaSlices:RegisterModule('settings', function ()
   end
 
   -- Keep track of active spellbook page
+  if not SpellBookPrevPageButton.HookScript then
+    SpellBookPrevPageButton.HookScript = HookScript
+  end
   SpellBookPrevPageButton:HookScript('OnClick', function ()
     currentPages[activeTab] = math.max(1, currentPages[activeTab] - 1)
   end)
+  if not SpellBookNextPageButton.HookScript then
+    SpellBookNextPageButton.HookScript = HookScript
+  end
   SpellBookNextPageButton:HookScript('OnClick', function ()
     currentPages[activeTab] = currentPages[activeTab] + 1
   end)
