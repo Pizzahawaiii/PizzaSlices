@@ -352,6 +352,7 @@ PizzaSlices:RegisterModule('settings', function ()
   -----------------------------------------------------------------------------
   
   local rings = CreateFrame('Frame', 'PizzaSlicesSettingsRings', f.content)
+  f.content.rings = rings
   rings:SetFrameStrata('DIALOG')
   rings:SetPoint('TOPLEFT', 0, 2)
   rings:SetPoint('BOTTOMRIGHT', 0, 0)
@@ -466,10 +467,138 @@ PizzaSlices:RegisterModule('settings', function ()
     rings.bind:SetScript('OnMouseDown', getBindHandler(ringIdx, mouseButtonMap))
   end
 
+  function addSliceToRing(slice)
+    if rings.edit.content.ring then
+      table.insert(rings.edit.ring.slices, slice)
+      loadRingSlices()
+    end
+  end
+
+  -- TODO: Move this somewhere else!
+  if not hooksecurefunc then
+    function hooksecurefunc(functionName, hookFunction)
+      local originalFunction = getglobal(functionName)
+      setglobal(functionName, function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        if originalFunction then
+          originalFunction(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        end
+        hookFunction(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+      end)
+    end
+  end
+
+  local activeTab = 1
+  local draggedSpellid, draggedBag, draggedSlot
+  local currentPages = {}
+  local spellsPerPage = 12
+
+  -- Keep track of active spellbook tab
+  for i = 1, GetNumSpellTabs() do
+    local tabButton = _G["SpellBookSkillLineTab" .. i]
+    if tabButton then
+      local idx = i
+      currentPages[idx] = 1
+      tabButton:HookScript("OnClick", function()
+        activeTab = idx
+      end)
+    end
+  end
+
+  -- Keep track of active spellbook page
+  SpellBookPrevPageButton:HookScript('OnClick', function ()
+    currentPages[activeTab] = math.max(1, currentPages[activeTab] - 1)
+  end)
+  SpellBookNextPageButton:HookScript('OnClick', function ()
+    currentPages[activeTab] = currentPages[activeTab] + 1
+  end)
+
+  -- Keep track of dragged spell
+  hooksecurefunc('SpellButton_OnClick', function ()
+    if not this then return end
+    local relativeSlot = this:GetID()
+    local tabName, _, tabOffset, numSpells = GetSpellTabInfo(activeTab)
+    local pageOffset = (currentPages[activeTab] - 1) * spellsPerPage
+    local slot = tabOffset + pageOffset + relativeSlot
+    if CursorHasSpell() and slot then
+      draggedSpellSlot = slot
+    end
+  end)
+
+  -- Keep track of dragged item
+  hooksecurefunc('PickupContainerItem', function (bag, slot)
+    if CursorHasItem() then
+      draggedBag = bag
+      draggedSlot = slot
+    end
+  end)
+
+  function enableNativeDragAndDrop(frame)
+    frame:EnableMouse(true)
+    frame:RegisterForDrag('LeftButton')
+    frame:SetScript('OnReceiveDrag', function()
+      if CursorHasSpell() then
+        local spellName, spellRank = GetSpellName(draggedSpellSlot, BOOKTYPE_SPELL)
+        local tex = GetSpellTexture(draggedSpellSlot, BOOKTYPE_SPELL)
+        addSliceToRing({
+          name = spellName,
+          rank = spellRank,
+          tex = tex,
+          color = PS.utils.getRandomColor(),
+          spellId = draggedSpellSlot,
+          action = 'spell:<name>',
+        })
+      elseif CursorHasItem() and draggedBag and draggedSlot then
+        local itemLink = GetContainerItemLink(draggedBag, draggedSlot)
+        local tex = GetContainerItemInfo(draggedBag, draggedSlot)
+        local _, _, itemId = string.find(itemLink, '(%d+):')
+        local itemName = GetItemInfo(itemId)
+        addSliceToRing({
+          name = itemName,
+          tex = tex,
+          color = PS.utils.getRandomColor(),
+          itemId = itemId,
+          action = 'item:<id>',
+        })
+      end
+
+      ClearCursor()
+    end)
+
+    frame:SetScript('OnMouseUp', function()
+      if arg1 == 'LeftButton' then
+        this:GetScript("OnReceiveDrag")()
+      end
+    end)
+  end
+
   local function createEditFrame(ringIdx, ring)
     local edit = CreateFrame('Frame', 'PizzaSlicesSettingsRingsEdit', rings)
     edit:SetPoint('TOPLEFT', f.content, 'TOPLEFT', 0, -14)
     edit:SetPoint('BOTTOMRIGHT', f.content, 'BOTTOMRIGHT', 0, 0)
+    edit:SetScript('OnUpdate', function ()
+      local isDraggingActiveSpell = CursorHasSpell()
+      if isDraggingActiveSpell then
+        local spellName, spellRank = GetSpellName(draggedSpellSlot, BOOKTYPE_SPELL)
+        isDraggingActiveSpell = PS.utils.isActiveSpell(spellName, spellRank)
+      end
+
+      local isDraggingUsableItem = CursorHasItem()
+      if isDraggingUsableItem then
+        local itemLink = GetContainerItemLink(draggedBag, draggedSlot)
+        local _, _, itemId = string.find(itemLink, '(%d+):')
+        local _, _, _, _, _, itemType = GetItemInfo(itemId)
+        isDraggingUsableItem = PS.scanner.isUsableItem(itemId) and itemType ~= 'Quest' and itemType ~= 'Trade Goods'
+      end
+
+      local isDragging = rings.edit.content.browser.isDragging or isDraggingActiveSpell or isDraggingUsableItem
+      if isDragging then
+        edit.content.ringdrop:Show()
+        edit.content.ring:Hide()
+      else
+        edit.content.ringdrop:Hide()
+        edit.content.ring:Show()
+      end
+    end)
 
     edit.header = CreateFrame('EditBox', edit:GetName() .. 'Header', edit)
     edit.header:SetTextInsets(5, 5, 5, 5)
@@ -510,6 +639,8 @@ PizzaSlices:RegisterModule('settings', function ()
     edit.content.ringdrop.text:SetPoint('CENTER', 0, 0)
     edit.content.ringdrop.text:SetTextColor(g.r, g.g, g.b, .7)
     edit.content.ringdrop.text:SetText('+')
+
+    enableNativeDragAndDrop(edit.content.ringdrop)
 
     local mouseOverRingDrop = false
     edit.content.ringdrop:SetScript('OnUpdate', function ()
@@ -1173,6 +1304,7 @@ PizzaSlices:RegisterModule('settings', function ()
       local y = math.floor((idx - 1) / 13) * -42
       f:SetPoint('TOPLEFT', x, y)
       f:SetScript('OnDragStart', function ()
+        rings.edit.content.browser.isDragging = true
         local clone = f.clone
         if not clone then
           clone = CreateFrame('Frame', f:GetName() .. 'Clone', f)
@@ -1195,6 +1327,7 @@ PizzaSlices:RegisterModule('settings', function ()
         rings.edit.content.ringdrop:Show()
       end)
       f:SetScript('OnDragStop', function ()
+        rings.edit.content.browser.isDragging = false
         handleDrop(sl)
         rings.edit.content.ringdrop:Hide()
         rings.edit.content.ring:Show()
