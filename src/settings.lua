@@ -930,7 +930,6 @@ PizzaSlices:RegisterModule('settings', function ()
 
         local removed = handleDrop(slice, idx)
         if removed then
-          table.remove(r.slices, idx)
           f:Hide()
         end
         rings.edit.content.browser:Show()
@@ -945,7 +944,7 @@ PizzaSlices:RegisterModule('settings', function ()
           local ringRightX = r:GetRight()
           local ringTopY = r:GetTop()
           local ringBottomY = r:GetBottom()
-          local sliceCount = PS.utils.length(r.slices)
+          local sliceCount = PS.utils.length(rings.edit.ring.slices)
           local lastSlice = r.slices[sliceCount]
           local lastSliceBottomY = lastSlice and lastSlice:GetBottom()
           local cursorWithinRing = cursx >= ringLeftX and cursx <= ringRightX and cursy <= ringTopY and cursy >= ringBottomY
@@ -1028,7 +1027,7 @@ PizzaSlices:RegisterModule('settings', function ()
         local ringRightX = r:GetRight()
         local ringTopY = r:GetTop()
         local ringBottomY = r:GetBottom()
-        local sliceCount = PS.utils.length(r.slices)
+        local sliceCount = PS.utils.length(rings.edit.ring.slices)
         local lastSlice = r.slices[sliceCount]
         local lastSliceBottomY = lastSlice and lastSlice:GetBottom()
         local cursorWithinRing = cursx >= ringLeftX and cursx <= ringRightX and cursy <= ringTopY and cursy >= ringBottomY
