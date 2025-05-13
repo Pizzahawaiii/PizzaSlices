@@ -110,10 +110,10 @@ Please check the [issue list](https://github.com/Pizzahawaiii/PizzaSlices/issues
 
 You're always more than welcome to ask questions or provide any kind of feedback.
 
-- **Turtle Discord**: Pizzahawaii
+- **Turtle Discord**: Pizza
 - **Nordanaar**: Pizzahawaii, Pizzamista, Pizzapimp, Pizzapaws, Pizzapog<br />If you see anyone whose name starts with 'Pizza', chances are it's me. 
 
-## Acknowledgements
+## Credits
 
 Thanks to [foxlit](https://www.curseforge.com/members/foxlit) for the inspiration! 🚀
 
