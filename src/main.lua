@@ -103,6 +103,9 @@ local actions = {
     local spellName = v == '<name>' and slice.name or v
     if slice.rank then
       spellName = spellName .. '(' .. slice.rank .. ')'
+    elseif string.find(spellName, '%(%w+%)') then
+      -- See https://vanilla-wow-archive.fandom.com/wiki/API_CastSpellByName#Notes
+      spellName = spellName .. '()'
     end
     CastSpellByName(spellName)
   end,
