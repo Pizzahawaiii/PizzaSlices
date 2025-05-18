@@ -197,7 +197,8 @@ PizzaSlices:RegisterModule('slices', function ()
           local _, _, id = string.find(link, "item:(%d+):%d+:%d+:%d+")
           if id and not added[id] then
             local name, _, _, _, _, type = GetItemInfo(id)
-            if PS.scanner.isUsableItem(id) and type ~= 'Quest' and type ~= 'Trade Goods' then
+            local isQuestItem = type == 'Quest' and string.sub(name, 1, 5) ~= 'Juju '
+            if PS.scanner.isUsableItem(id) and not isQuestItem and type ~= 'Trade Goods' then
               local tex = GetContainerItemInfo(bag, slot)
               table.insert(slices, {
                 name = name,

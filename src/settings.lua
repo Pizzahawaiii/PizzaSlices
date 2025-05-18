@@ -608,8 +608,9 @@ PizzaSlices:RegisterModule('settings', function ()
       if isDraggingUsableItem then
         local itemLink = GetContainerItemLink(draggedBag, draggedSlot)
         local _, _, itemId = string.find(itemLink, '(%d+):')
-        local _, _, _, _, _, itemType = GetItemInfo(itemId)
-        isDraggingUsableItem = PS.scanner.isUsableItem(itemId) and itemType ~= 'Quest' and itemType ~= 'Trade Goods'
+        local itemName, _, _, _, _, itemType = GetItemInfo(itemId)
+        local isQuestItem = itemType == 'Quest' and string.sub(itemName, 1, 5) ~= 'Juju '
+        isDraggingUsableItem = PS.scanner.isUsableItem(itemId) and not isQuestItem and itemType ~= 'Trade Goods'
       end
 
       local isDragging = rings.edit.content.browser.isDragging or isDraggingActiveSpell or isDraggingUsableItem
