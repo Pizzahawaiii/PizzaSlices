@@ -228,13 +228,11 @@ PS:SetScript('OnEvent', function ()
       _, channelName = GetChannelName(source)
     end
 
-    if channelName == PS.channelName then
-      local _, _, addonName, remoteVersion = string.find(arg1, '(.*)%:(.*)')
-      if addonName == PS:GetName() then
-        if tonumber(remoteVersion) > PS.utils.getVersionNumber() and not PS.updateNotified then
-          PS:Print('New version available! https://github.com/Pizzahawaiii/PizzaSlices')
-          PS.updateNotified = true
-        end
+    if channelName == PS.channelName and string.sub(arg1, 1, 11) == PS:GetName() then
+      local remoteVersion = tonumber(string.sub(arg1, 13, 17))
+      if remoteVersion > PS.utils.getVersionNumber() and not PS.updateNotified then
+        PS:Print('New version available! https://github.com/Pizzahawaiii/PizzaSlices')
+        PS.updateNotified = true
       end
     end
   end
