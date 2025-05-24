@@ -114,6 +114,81 @@ PizzaSlices:RegisterModule('utils', function ()
     return { r = r, g = g, b = b }
   end
 
+  function PS.utils.hasPfUI()
+    return IsAddOnLoaded('pfUI') and pfUI and pfUI.uf and pfUI.env and pfUI.env.C
+  end
+
+  function PS.utils.getButtonForSlot(slot)
+    if PS.utils.hasPfUI() and pfUI_config and pfUI_config.disabled.actionbar ~= '1' then
+      if slot >= 1 and slot <= 12 then
+        return _G['pfActionBarMainButton' .. slot]
+      elseif slot >= 13 and slot <= 24 then
+        return _G['pfActionBarPagingButton' .. (slot - 12)]
+      elseif slot >= 25 and slot <= 36 then
+        return _G['pfActionBarRightButton' .. (slot - 24)]
+      elseif slot >= 37 and slot <= 48 then
+        return _G['pfActionBarVerticalButton' .. (slot - 36)]
+      elseif slot >= 49 and slot <= 60 then
+        return _G['pfActionBarLeftButton' .. (slot - 48)]
+      elseif slot >= 61 and slot <= 72 then
+        return _G['pfActionBarTopButton' .. (slot - 60)]
+      elseif slot >= 73 and slot <= 84 then
+        return _G['pfActionBarStanceBar1Button' .. (slot - 72)]
+      elseif slot >= 85 and slot <= 96 then
+        return _G['pfActionBarStanceBar2Button' .. (slot - 84)]
+      elseif slot >= 97 and slot <= 108 then
+        return _G['pfActionBarStanceBar3Button' .. (slot - 96)]
+      elseif slot >= 109 and slot <= 120 then
+        return _G['pfActionBarStanceBar4Button' .. (slot - 108)]
+      end
+    else
+      if slot >= 1 and slot <= 12 then
+        return _G['ActionButton' .. slot]
+      elseif slot >= 25 and slot <= 36 then
+        return _G['MultiBarRightButton' .. (slot - 24)]
+      elseif slot >= 37 and slot <= 48 then
+        return _G['MultiBarLeftButton' .. (slot - 36)]
+      elseif slot >= 49 and slot <= 60 then
+        return _G['MultiBarBottomRightButton' .. (slot - 48)]
+      elseif slot >= 61 and slot <= 72 then
+        return _G['MultiBarBottomLeftButton' .. (slot - 60)]
+      end
+      return nil
+    end
+  end
+
+  local patterns = {
+    -- Default buttons
+    { '^ActionButton(%d+)',              'ACTIONBUTTON' },
+    { '^MultiBarBottomLeftButton(%d+)',  'MULTIACTIONBAR1BUTTON' },
+    { '^MultiBarBottomRightButton(%d+)', 'MULTIACTIONBAR2BUTTON' },
+    { '^MultiBarRightButton(%d+)',       'MULTIACTIONBAR3BUTTON' },
+    { '^MultiBarLeftButton(%d+)',        'MULTIACTIONBAR4BUTTON' },
+
+    -- pfUI buttons
+    { '^pfActionBarMainButton(%d+)',       'ACTIONBUTTON' },
+    { '^pfActionBarTopButton(%d+)',        'MULTIACTIONBAR1BUTTON' },
+    { '^pfActionBarLeftButton(%d+)',       'MULTIACTIONBAR2BUTTON' },
+    { '^pfActionBarRightButton(%d+)',      'MULTIACTIONBAR3BUTTON' },
+    { '^pfActionBarVerticalButton(%d+)',   'MULTIACTIONBAR4BUTTON' },
+    { '^pfActionBarPagingButton(%d+)',     'PGPAGING' },
+    { '^pfActionBarStanceBar1Button(%d+)', 'PFSTANCEONE' },
+    { '^pfActionBarStanceBar2Button(%d+)', 'PFSTANCETWO' },
+    { '^pfActionBarStanceBar3Button(%d+)', 'PFSTANCETHREE' },
+    { '^pfActionBarStanceBar4Button(%d+)', 'PFSTANCEFOUR' },
+  }
+  function PS.utils.getButtonBinding(button)
+    local name = button:GetName()
+    for _, pattern in ipairs(patterns) do
+      local _, _, idx = string.find(name, pattern[1])
+      if idx then
+        local binding = pattern[2] .. idx
+        local keys = { GetBindingKey(binding) }
+        return keys
+      end
+    end
+  end
+
   function PS.utils.findItem(name)
     for bag = 0, 4 do
       for slot = 1, GetContainerNumSlots(bag) do

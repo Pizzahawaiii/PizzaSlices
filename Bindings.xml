@@ -14,4 +14,5 @@
 	<Binding name="PIZZASLICES_RING13" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(13)</Binding>
 	<Binding name="PIZZASLICES_RING14" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(14)</Binding>
 	<Binding name="PIZZASLICES_RING15" header="PIZZASLICES" runOnUp="true">PizzaSlices:Open(15)</Binding>
+	<Binding name="PIZZASLICES_CLOSE" header="PIZZASLICES" runOnUp="true">PizzaSlices:Close()</Binding>
 </Bindings>

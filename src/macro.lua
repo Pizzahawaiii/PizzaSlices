@@ -26,4 +26,16 @@ PizzaSlices:RegisterModule('macro', function ()
     if not runMacro then runMacro = PS.macro.run end
     return runMacro
   end
+
+  function PS.macro.opensRing(macroName, ringIdx)
+    local body = getBody(macroName)
+    if not body then return false end
+    local lines = PS.utils.strSplit(body, '\n', true)
+    for _, line in pairs(lines) do
+      if line == ('/ps open ' .. ringIdx) or line == ('/slices open ' .. ringIdx) or line == ('/pizzaslices open ' .. ringIdx) then
+        return true
+      end
+    end
+    return false
+  end
 end)
