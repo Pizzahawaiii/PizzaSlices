@@ -126,3 +126,5 @@ Thanks to all the beta testers for providing valuable feedback! ♥️
 - rooti
 - Ténébreux
 - Zcoobee
+
+Thanks to Kanki for the name PizzaSlices! 💯
