@@ -451,7 +451,7 @@ PizzaSlices:RegisterModule('settings', function ()
         if prevKey then SetBinding(prevKey) end
         local key = map and map[arg1] or arg1
         if SetBinding(prefix..key, binding) then
-          SaveBindings(GetCurrentBindingSet())
+          SaveBindings(2)
         end
       end
 
@@ -1459,7 +1459,7 @@ PizzaSlices:RegisterModule('settings', function ()
       if key then SetBinding(key) end
       if newKey then SetBinding(newKey, 'PIZZASLICES_RING' .. idx) end
     end
-    SaveBindings(GetCurrentBindingSet())
+    SaveBindings(2)
   end
 
   function PS.settings.save(idx, ring)
