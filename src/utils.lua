@@ -114,6 +114,10 @@ PizzaSlices:RegisterModule('utils', function ()
     return { r = r, g = g, b = b }
   end
 
+  function PS.utils.hasOutfitter()
+    return IsAddOnLoaded('Outfitter') and gOutfitter_Settings and Outfitter_ExecuteCommand
+  end
+
   function PS.utils.findItem(name)
     for bag = 0, 4 do
       for slot = 1, GetContainerNumSlots(bag) do

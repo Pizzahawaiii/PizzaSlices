@@ -151,6 +151,11 @@ local actions = {
     end
   end,
 
+  outfitter = function (v, slice)
+    local _, _, setName = PS.utils.strSplit(slice.name, ' ')
+    Outfitter_ExecuteCommand('wear ' .. setName)
+  end,
+
   item = function (v, slice)
     local bag, slot = PS.utils.findItem(slice.name)
     if bag and slot then

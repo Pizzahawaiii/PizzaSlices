@@ -169,6 +169,23 @@ PizzaSlices:RegisterModule('slices', function ()
     return slices
   end
 
+  local function getOutfitterSlices()
+    local slices = {}
+    if PS.utils.hasOutfitter() then
+      for category, outfits in pairs(gOutfitter_Settings.Outfits) do
+        for _, outfit in ipairs(outfits) do
+          table.insert(slices, {
+            name = 'Outfitter Set: ' .. outfit.Name,
+            tex = 'Interface\\Icons\\INV_Misc_QuestionMark', -- TODO: Which texture to use?!
+            color = PS.utils.getRandomColor(),
+            action = 'outfitter:<name>',
+          })
+        end
+      end
+    end
+    return slices
+  end
+
   local function getMacroSlices()
     local slices = {}
     for i = 1, 36 do
@@ -222,6 +239,7 @@ PizzaSlices:RegisterModule('slices', function ()
     ['Companions'] = getSpellSlices('ZzCompanions'),
     ['General'] = getSpellSlices('General'),
     ['ItemRack Sets'] = getItemrackSlices,
+    ['Outfitter Sets'] = getOutfitterSlices,
     ['Items'] = getItemSlices,
     ['Macros'] = getMacroSlices,
     ['Mounts'] = getSpellSlices('ZMounts'),
