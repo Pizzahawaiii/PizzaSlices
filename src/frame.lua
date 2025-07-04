@@ -95,6 +95,20 @@ PizzaSlices:RegisterModule('frame', function ()
         f.cdtext:Hide()
       end
 
+      if string.sub(slice.action, 1, 6) == 'macro:' and C.showMacroNames then
+        local macroName = string.gsub(slice.name, 'Macro: ', '')
+        if not f.text then
+          f.text = f:CreateFontString(f:GetName() .. 'Text', 'OVERLAY', 'GameFontWhite')
+          f.text:SetPoint('TOP', f, 'BOTTOM', 0, -5)
+          f.text:SetFont(STANDARD_TEXT_FONT, 14, 'OUTLINE')
+          f.text:SetTextColor(1, 1, 1, 1)
+        end
+        f.text:SetText(macroName)
+        f.text:Show()
+      elseif f.text then
+        f.text:Hide()
+      end
+
       if slice.spellId or slice.itemId then
         local start, duration, enable
 
@@ -386,6 +400,14 @@ PizzaSlices:RegisterModule('frame', function ()
       if nextAlpha then slice.frame.tex:SetAlpha(nextAlpha) end
       if not nextAlpha and slice.frame.tex:GetAlpha() ~= targetAlpha then
         slice.frame.tex:SetAlpha(targetAlpha)
+      end
+
+      if slice.frame.text then
+        if nextAlpha then
+          slice.frame.text:SetAlpha(nextAlpha)
+        elseif slice.frame.text:GetAlpha() ~= targetAlpha then
+          slice.frame.tex:SetAlpha(targetAlpha)
+        end
       end
 
       local nextBorderAlpha = slice.noBorder and 0 or nextAlpha

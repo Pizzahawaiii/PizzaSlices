@@ -5,6 +5,7 @@ local defaultConfig = {
     duration = 1,
     rotateOnClose = 1,
   },
+  showMacroNames = false,
 }
 
 function PizzaSlices:LoadConfig()

@@ -347,6 +347,33 @@ PizzaSlices:RegisterModule('settings', function ()
     general.mousePos = frame
   end
 
+  do -- Checkbox: Show macro names
+    local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralMacroNames', general)
+    frame:SetFrameStrata('DIALOG')
+    frame:SetWidth(f:GetWidth() * .5)
+    frame:SetHeight(22)
+    frame:SetPoint('TOP', general.mousePos, 'TOP', 0, -30)
+    frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.label:SetJustifyH('LEFT')
+    frame.label:SetPoint('LEFT', 0, 1)
+    frame.label:SetText('Show macro names')
+    frame.checkbox = CreateFrame('CheckButton', frame:GetName() .. 'Checkbox', frame, 'UICheckButtonTemplate')
+    frame.checkbox:SetNormalTexture("")
+    frame.checkbox:SetPushedTexture("")
+    frame.checkbox:SetHighlightTexture("")
+    frame.checkbox:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkbox:SetBackdrop(backdrop)
+    frame.checkbox:SetBackdropColor(0, 0, 0, 0)
+    frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkbox:SetWidth(14)
+    frame.checkbox:SetHeight(14)
+    frame.checkbox:SetPoint("RIGHT" , 0, 0)
+    frame.checkbox:SetScript("OnClick", function () PizzaSlices_config.showMacroNames = this:GetChecked() ~= nil end)
+    if C.showMacroNames then frame.checkbox:SetChecked() end
+    general.macroNames = frame
+  end
+
   -----------------------------------------------------------------------------
   -- RINGS TAB
   -----------------------------------------------------------------------------
