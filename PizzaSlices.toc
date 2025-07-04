@@ -16,3 +16,4 @@ src\settings.lua
 src\commands.lua
 src\channel.lua
 src\scanner.lua
+src\snowfall.lua

@@ -234,6 +234,10 @@ function PS:Close()
       SetBinding(override.key)
       if override.oldAction and override.oldAction ~= '' then
         SetBinding(override.key, override.oldAction)
+        if PS.OnClose then
+          PS.OnClose()
+          PS.OnClose = nil
+        end
       end
     end
   end

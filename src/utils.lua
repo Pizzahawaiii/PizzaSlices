@@ -142,9 +142,7 @@ PizzaSlices:RegisterModule('utils', function ()
         return _G['pfActionBarStanceBar4Button' .. (slot - 108)]
       end
     else
-      if slot >= 1 and slot <= 12 then
-        return _G['ActionButton' .. slot]
-      elseif slot >= 25 and slot <= 36 then
+      if slot >= 25 and slot <= 36 then
         return _G['MultiBarRightButton' .. (slot - 24)]
       elseif slot >= 37 and slot <= 48 then
         return _G['MultiBarLeftButton' .. (slot - 36)]
@@ -152,6 +150,8 @@ PizzaSlices:RegisterModule('utils', function ()
         return _G['MultiBarBottomRightButton' .. (slot - 48)]
       elseif slot >= 61 and slot <= 72 then
         return _G['MultiBarBottomLeftButton' .. (slot - 60)]
+      elseif slot >= 73 and slot <= 84 then
+        return _G['ActionButton' .. (slot - 72)]
       end
       return nil
     end
