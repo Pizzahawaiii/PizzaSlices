@@ -104,9 +104,17 @@ To remove an item from a ring, simply drag & drop it into the red trash can area
 
 ## Opening Rings via Macros
 
+> [!NOTE]
+> 
+> This feature requires your action buttons to trigger on keydown, not on keyup (which is the game's default). PizzaSlices therefore comes with its own version of [Snowfall](https://github.com/Linae-Kronos/Classic-Snowfall). Note that if you're using pfUI, PizzaSlices forces your "Trigger Actions on Key Down" pfUI action bar setting to always be enabled.
+
 You can open your PizzaSlices rings through macros instead of game-internal key bindings by using the `/ps open <ringIndex>` command. `<ringIndex>` has to be a number - the index of the ring you want to open according to the ring list in the settings menu, starting with `1`.
 
 Let's say you see three rings in the settings:
+
+- Raid Marks
+- General
+- Mounts
 
 Then creating a macro with `/ps open 1` would open the Raid Marks, `/ps open 2` would open the General ring, and `/ps open 3` would open the Mounts ring.
 
