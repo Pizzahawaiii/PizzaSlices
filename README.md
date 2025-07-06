@@ -23,11 +23,9 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 ### Raid Marks
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/raidmarks.gif" width="380" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" align="left" />
 
-<p>
 Assign any raid marks quickly and easily with the press of a single button, no matter if you're using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons) or in a group/raid. There's also a special action to instantly clear all previously assigned raid marks.
-</p>
 <br clear="left"/>
 
 ### Abilities
