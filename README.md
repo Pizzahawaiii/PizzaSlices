@@ -23,7 +23,6 @@ PizzaSlices lets you create custom rings, fill them with various types of action
 ### Raid Marks
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/raidmarks.gif" width="380" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" align="left" />
 
 Assign any raid marks quickly and easily with the press of a single button, no matter if you're using [SoloRaidTargetIcons](https://github.com/refaim/SoloRaidTargetIcons) or in a group/raid. There's also a special action to instantly clear all previously assigned raid marks.
 <br clear="left"/>
@@ -31,7 +30,6 @@ Assign any raid marks quickly and easily with the press of a single button, no m
 ### Abilities
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/abilities.gif" width="380" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 You can add all your active abilities to rings. Buffs, auras, hunter aspects, or even damage and healing abilities if you really want to - go crazy!
 <br clear="left"/>
@@ -39,7 +37,6 @@ You can add all your active abilities to rings. Buffs, auras, hunter aspects, or
 ### Mounts
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/mounts.gif" height="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 All your mounts can be added to rings as well, anything you see in the 'Mounts' tab in your spellbook.
 <br clear="left"/>
@@ -47,7 +44,6 @@ All your mounts can be added to rings as well, anything you see in the 'Mounts' 
 ### Toys & Companions
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/toys-companions.gif" height="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be added to rings.
 <br clear="left"/>
@@ -55,7 +51,6 @@ Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be add
 ### Professions & General
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/professions.gif" height="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 Your professions and anything else listed in the 'General' tab of your spellbook are available as well. Excluding passive abilities, obviously.
 <br clear="left"/>
@@ -63,7 +58,6 @@ Your professions and anything else listed in the 'General' tab of your spellbook
 ### Macros
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/macros.gif" width="364" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 You can also add macros to rings if you need even more flexibility.
 <br clear="left"/>
@@ -71,7 +65,6 @@ You can also add macros to rings if you need even more flexibility.
 ### ItemRack Sets
 
 <img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/sets.gif" height="300" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="300" align="left" />
 
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
 <br clear="left"/>
@@ -89,7 +82,6 @@ Use one of the following commands to open the settings menu:
 ### Add Stuff to a Ring
 
 <img src="https://github.com/Pizzahawaiii/media/blob/main/PizzaSlices/settings-ringcreation.gif?raw=true" width="65%" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
 
 On the 'Rings' tab, click on the green + or on the name of one of the existing rings. Select one of the categories on the right. Then, drag & drop any of the items from the center into the ring area on the left (purple background). Finally, click 'Save'.
 <br clear="left"/>
@@ -97,7 +89,6 @@ On the 'Rings' tab, click on the green + or on the name of one of the existing r
 ### Remove Stuff from a Ring
 
 <img src="https://github.com/Pizzahawaiii/media/blob/main/PizzaSlices/settings-slice-deletion.gif?raw=true" width="65%" align="left" />
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/margin.png" width="0" height="250" align="left" />
 
 To remove an item from a ring, simply drag & drop it into the red trash can area that appears when you start dragging it away from the ring section (purple background).
 <br clear="left"/>
