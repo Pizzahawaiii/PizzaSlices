@@ -10,9 +10,11 @@ Radial action menus for [TurtleWoW](https://turtle-wow.org). A simplified [OPie]
 2. Copy the "PizzaSlices-main" folder to `<WoW>/Interface/AddOns` and rename it to "PizzaSlices"
 3. (Re)start WoW
 
-## Test
+## Version Upgrade
 
-LMAO
+To update to the latest version, delete your `<WoW>/Interface/AddOns/PizzaSlices` folder and follow the [installation steps](#install) again.
+
+Check the [TurtleWoW forum thread](https://forum.turtle-wow.org/viewtopic.php?f=18&t=19173) or [commit history](https://github.com/Pizzahawaiii/PizzaSlices/commits/main) to see the latest changes.
 
 ## Features
 
