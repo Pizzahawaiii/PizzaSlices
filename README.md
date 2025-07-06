@@ -71,14 +71,6 @@ If you're using ItemRack, you can also add your gear sets to rings to quickly ch
 
 ## Opening Rings via Macros
 
-> [!NOTE]
-> 
-> This feature requires your action buttons to trigger on keydown, not on keyup (which is the game's default). PizzaSlices therefore comes with its own version of [Snowfall](https://github.com/Linae-Kronos/Classic-Snowfall). Note that if you're using pfUI, PizzaSlices forces your "Trigger Actions on Key Down" pfUI action bar setting to always be enabled.
-
-> [!NOTE]
->
-> Opening rings via macros doesn't work when clicking the macro button. You have to bind the macro action button to a key and press that key to open the ring.
-
 You can open your PizzaSlices rings through macros instead of game-internal key bindings with this command:
 
 ```
@@ -96,6 +88,14 @@ Mounts
 ```
 
 Then creating a macro with `/ps open 1` would open the Raid Marks, `/ps open 2` would open the General ring, and `/ps open 3` would open the Mounts ring.
+
+> [!NOTE]
+> 
+> This feature requires your action buttons to trigger on keydown, not on keyup (which is the game's default). PizzaSlices therefore comes with its own version of [Snowfall](https://github.com/Linae-Kronos/Classic-Snowfall). Note that if you're using pfUI, PizzaSlices forces your "Trigger Actions on Key Down" pfUI action bar setting to always be enabled.
+
+> [!NOTE]
+>
+> Opening rings via macros doesn't work when clicking the macro button. You have to bind the macro action button to a key and press that key to open the ring.
 
 ## Settings
 
