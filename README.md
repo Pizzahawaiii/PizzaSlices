@@ -112,11 +112,9 @@ You can open your PizzaSlices rings through macros instead of game-internal key 
 
 Let's say you see three rings in the settings:
 
-```
-Raid Marks
-General
-Mounts
-```
+- Raid Marks
+- General
+- Mounts
 
 Then creating a macro with `/ps open 1` would open the Raid Marks, `/ps open 2` would open the General ring, and `/ps open 3` would open the Mounts ring.
 
