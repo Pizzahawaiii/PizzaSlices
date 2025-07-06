@@ -36,35 +36,35 @@ You can add all your active abilities to rings. Buffs, auras, hunter aspects, or
 
 ### Mounts
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/mounts.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/mounts.gif" width="380" align="left" />
 
 All your mounts can be added to rings as well, anything you see in the 'Mounts' tab in your spellbook.
 <br clear="left"/>
 
 ### Toys & Companions
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/toys-companions.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/toys-companions.gif" width="380" align="left" />
 
 Anything from the 'Toys' and 'Companions' tabs in your spellbook can also be added to rings.
 <br clear="left"/>
 
 ### Professions & General
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/professions.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/professions.gif" width="380" align="left" />
 
 Your professions and anything else listed in the 'General' tab of your spellbook are available as well. Excluding passive abilities, obviously.
 <br clear="left"/>
 
 ### Macros
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/macros.gif" width="364" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/macros.gif" width="380" align="left" />
 
 You can also add macros to rings if you need even more flexibility.
 <br clear="left"/>
 
 ### ItemRack Sets
 
-<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/sets.gif" height="300" align="left" />
+<img src="https://raw.githubusercontent.com/Pizzahawaiii/media/refs/heads/main/PizzaSlices/sets.gif" width="380" align="left" />
 
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
 <br clear="left"/>
