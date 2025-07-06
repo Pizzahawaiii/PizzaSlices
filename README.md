@@ -69,30 +69,6 @@ You can also add macros to rings if you need even more flexibility.
 If you're using ItemRack, you can also add your gear sets to rings to quickly change outfits on the fly.
 <br clear="left"/>
 
-## Settings
-
-Use one of the following commands to open the settings menu:
-
-```
-/ps
-/slices
-/pizzaslices
-```
-
-### Add Stuff to a Ring
-
-<img src="https://github.com/Pizzahawaiii/media/blob/main/PizzaSlices/settings-ringcreation.gif?raw=true" width="65%" align="left" />
-
-On the 'Rings' tab, click on the green + or on the name of one of the existing rings. Select one of the categories on the right. Then, drag & drop any of the items from the center into the ring area on the left (purple background). Finally, click 'Save'.
-<br clear="left"/>
-
-### Remove Stuff from a Ring
-
-<img src="https://github.com/Pizzahawaiii/media/blob/main/PizzaSlices/settings-slice-deletion.gif?raw=true" width="65%" align="left" />
-
-To remove an item from a ring, simply drag & drop it into the red trash can area that appears when you start dragging it away from the ring section (purple background).
-<br clear="left"/>
-
 ## Opening Rings via Macros
 
 > [!NOTE]
@@ -116,6 +92,30 @@ Mounts
 ```
 
 Then creating a macro with `/ps open 1` would open the Raid Marks, `/ps open 2` would open the General ring, and `/ps open 3` would open the Mounts ring.
+
+## Settings
+
+Use one of the following commands to open the settings menu:
+
+```
+/ps
+/slices
+/pizzaslices
+```
+
+### Add Stuff to a Ring
+
+<img src="https://github.com/Pizzahawaiii/media/blob/main/PizzaSlices/settings-ringcreation.gif?raw=true" width="65%" align="left" />
+
+On the 'Rings' tab, click on the green + or on the name of one of the existing rings. Select one of the categories on the right. Then, drag & drop any of the items from the center into the ring area on the left (purple background). Finally, click 'Save'.
+<br clear="left"/>
+
+### Remove Stuff from a Ring
+
+<img src="https://github.com/Pizzahawaiii/media/blob/main/PizzaSlices/settings-slice-deletion.gif?raw=true" width="65%" align="left" />
+
+To remove an item from a ring, simply drag & drop it into the red trash can area that appears when you start dragging it away from the ring section (purple background).
+<br clear="left"/>
 
 ## Missing Feature? Bug?
 
