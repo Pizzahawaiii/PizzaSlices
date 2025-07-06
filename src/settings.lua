@@ -374,6 +374,33 @@ PizzaSlices:RegisterModule('settings', function ()
     general.macroNames = frame
   end
 
+  do -- Checkbox: Black icon borders
+    local frame = CreateFrame('Frame', 'PizzaSlicesSettingsGeneralBlackBorders', general)
+    frame:SetFrameStrata('DIALOG')
+    frame:SetWidth(f:GetWidth() * .5)
+    frame:SetHeight(22)
+    frame:SetPoint('TOP', general.macroNames, 'TOP', 0, -30)
+    frame.label = frame:CreateFontString(frame:GetName() .. 'Label', 'DIALOG', 'GameFontWhite')
+    frame.label:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
+    frame.label:SetJustifyH('LEFT')
+    frame.label:SetPoint('LEFT', 0, 1)
+    frame.label:SetText('Black icon borders')
+    frame.checkbox = CreateFrame('CheckButton', frame:GetName() .. 'Checkbox', frame, 'UICheckButtonTemplate')
+    frame.checkbox:SetNormalTexture("")
+    frame.checkbox:SetPushedTexture("")
+    frame.checkbox:SetHighlightTexture("")
+    frame.checkbox:SetCheckedTexture('Interface\\AddOns\\PizzaSlices\\img\\checkboxcheck')
+    frame.checkbox:SetBackdrop(backdrop)
+    frame.checkbox:SetBackdropColor(0, 0, 0, 0)
+    frame.checkbox:SetBackdropBorderColor(1, 1, 1, 1)
+    frame.checkbox:SetWidth(14)
+    frame.checkbox:SetHeight(14)
+    frame.checkbox:SetPoint("RIGHT" , 0, 0)
+    frame.checkbox:SetScript("OnClick", function () PizzaSlices_config.blackBorders = this:GetChecked() ~= nil end)
+    if C.blackBorders then frame.checkbox:SetChecked() end
+    general.blackBorders = frame
+  end
+
   -----------------------------------------------------------------------------
   -- RINGS TAB
   -----------------------------------------------------------------------------

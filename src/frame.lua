@@ -158,7 +158,11 @@ PizzaSlices:RegisterModule('frame', function ()
       f.borderlow:SetAllPoints(f)
       f.borderlow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderlo')
       f.borderlow:SetAlpha(0)
-      f.borderlow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
+      if C.blackBorders then
+        f.borderlow:SetVertexColor(0, 0, 0, 1)
+      else
+        f.borderlow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
+      end
 
       if not f.borderhigh then
         f.borderhigh = f:CreateTexture(f:GetName() .. 'BorderHigh', 'OVERLAY')
@@ -166,7 +170,11 @@ PizzaSlices:RegisterModule('frame', function ()
       f.borderhigh:SetAllPoints(f)
       f.borderhigh:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\borderhi')
       f.borderhigh:SetAlpha(0)
-      f.borderhigh:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
+      if C.blackBorders then
+        f.borderhigh:SetVertexColor(0, 0, 0, 1)
+      else
+        f.borderhigh:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
+      end
 
       if not f.oglow then
         f.oglow = f:CreateTexture(f:GetName() .. 'OuterGlow', 'BACKGROUND')
@@ -186,7 +194,11 @@ PizzaSlices:RegisterModule('frame', function ()
       f.iglow:SetHeight(f:GetHeight())
       f.iglow:SetTexture('Interface\\AddOns\\PizzaSlices\\img\\iglow')
       f.iglow:SetAlpha(0)
-      f.iglow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
+      if C.blackBorders then
+        f.iglow:SetVertexColor(1, 1, 1, 1)
+      else
+        f.iglow:SetVertexColor(slice.color.r, slice.color.g, slice.color.b, 1)
+      end
 
       if string.sub(slice.action, 1, 5) == 'item:' then
         if not f.itemCount then
@@ -449,15 +461,21 @@ PizzaSlices:RegisterModule('frame', function ()
     if PS.utils.distance(circx, circy, cursx, cursy) < 21 * sqrt(C.scale) then
       PS:SelectSlice(PS.ring.quickSelect)
 
-      local r, g, b = .8, .8, .8
-      if PS.ring.quickSelect then
-        r = PS.ring.slices[PS.ring.quickSelect].color.r
-        g = PS.ring.slices[PS.ring.quickSelect].color.g
-        b = PS.ring.slices[PS.ring.quickSelect].color.b
+      if C.blackBorders then
+        PS.frame.circle.tex:SetVertexColor(0, 0, 0)
+        PS.frame.circle.glow.tex:SetVertexColor(1, 1, 1)
+        PS.frame.pointer.tex:SetVertexColor(.8, .8, .8)
+      else
+        local r, g, b = .8, .8, .8
+        if PS.ring.quickSelect then
+          r = PS.ring.slices[PS.ring.quickSelect].color.r
+          g = PS.ring.slices[PS.ring.quickSelect].color.g
+          b = PS.ring.slices[PS.ring.quickSelect].color.b
+        end
+        PS.frame.circle.tex:SetVertexColor(r, g, b)
+        PS.frame.circle.glow.tex:SetVertexColor(r, g, b)
+        PS.frame.pointer.tex:SetVertexColor(r, g, b)
       end
-      PS.frame.circle.tex:SetVertexColor(r, g, b)
-      PS.frame.circle.glow.tex:SetVertexColor(r, g, b)
-      PS.frame.pointer.tex:SetVertexColor(r, g, b)
 
       local glowAlpha = PS.frame.circle.glow.tex:GetAlpha()
       if glowAlpha > 0 then
@@ -477,14 +495,20 @@ PizzaSlices:RegisterModule('frame', function ()
         PS:SelectSlice(selectedIdx)
       end
 
-      local r, g, b = 1, 1, 1
-      if selectedIdx then
-        local color = PS.ring.slices[selectedIdx].color
-        r, g, b = color.r, color.g, color.b
+      if C.blackBorders then
+        PS.frame.circle.tex:SetVertexColor(0, 0, 0)
+        PS.frame.circle.glow.tex:SetVertexColor(1, 1, 1)
+        PS.frame.pointer.tex:SetVertexColor(.8, .8, .8)
+      else
+        local r, g, b = 1, 1, 1
+        if selectedIdx then
+          local color = PS.ring.slices[selectedIdx].color
+          r, g, b = color.r, color.g, color.b
+        end
+        PS.frame.circle.tex:SetVertexColor(r, g, b)
+        PS.frame.circle.glow.tex:SetVertexColor(r, g, b)
+        PS.frame.pointer.tex:SetVertexColor(r, g, b)
       end
-      PS.frame.circle.tex:SetVertexColor(r, g, b)
-      PS.frame.circle.glow.tex:SetVertexColor(r, g, b)
-      PS.frame.pointer.tex:SetVertexColor(r, g, b)
 
       local glowAlpha = PS.frame.circle.glow.tex:GetAlpha()
       if glowAlpha < 1 then
