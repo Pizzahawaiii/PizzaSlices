@@ -7,6 +7,7 @@ PS.fps = 60
 
 PS.modules = {}
 PS.moduleNames = {}
+PS.overrides = {}
 PS.frames = {}
 PS.env = {}
 
@@ -34,6 +35,7 @@ BINDING_NAME_PIZZASLICES_RING12 = 'Ring 12'
 BINDING_NAME_PIZZASLICES_RING13 = 'Ring 13'
 BINDING_NAME_PIZZASLICES_RING14 = 'Ring 14'
 BINDING_NAME_PIZZASLICES_RING15 = 'Ring 15'
+BINDING_NAME_PIZZASLICES_CLOSE = 'Close Ring'
 
 setmetatable(PS.env, { __index = function (self, key)
   if key == 'T' then return end
@@ -184,7 +186,7 @@ function PS:TriggerSliceAction(idx)
   action(actionValue, slice)
 end
 
-function PS:Open(ringIdx)
+function PS:Open(ringIdx, fromCommand)
   if not PizzaSlices_rings[ringIdx] then return end
 
   local ring = PS.utils.clone(PizzaSlices_rings[ringIdx])
@@ -194,10 +196,55 @@ function PS:Open(ringIdx)
     return
   end
 
-  PS.open = keystate == 'down'
+  if fromCommand then
+    for slot = 1, 120 do
+      local macroName = GetActionText(slot)
+      if macroName and PS.macro.opensRing(macroName, ringIdx) then
+        local button = PS.utils.getButtonForSlot(slot)
+        if not button then
+          PS:PrintError('No button found for slot ' .. slot)
+          return
+        end
+        local keys = PS.utils.getButtonBinding(button)
+        if keys and PS.utils.length(keys) > 0 then
+          for _, key in ipairs(keys) do
+            local oldAction = GetBindingAction(key)
+            SetBinding(key, 'PIZZASLICES_CLOSE')
+            table.insert(PS.overrides, { key = key, oldAction = oldAction })
+          end
+        end
+      end
+    end
+  end
+
+  PS.open = fromCommand or keystate == 'down'
   if PS.open then
     PS.frame.open(ring)
   elseif PS.selectedIdx then
+    PS:TriggerSliceAction(PS.selectedIdx)
+    PS:Deselect()
+  end
+end
+
+function PS:Close()
+  -- Restore original key binds that were overridden if the
+  -- ring was opened through slash command.
+  for idx, override in ipairs(PS.overrides) do
+    if override.key then
+      SetBinding(override.key)
+      if override.oldAction and override.oldAction ~= '' then
+        SetBinding(override.key, override.oldAction)
+        if PS.OnClose then
+          PS.OnClose()
+          PS.OnClose = nil
+        end
+      end
+    end
+  end
+  PS.overrides = {}
+
+  PS.open = false
+  if PS.selectedIdx then
     PS:TriggerSliceAction(PS.selectedIdx)
     PS:Deselect()
   end
