@@ -16,6 +16,10 @@ To update to the latest version, delete your `<WoW>/Interface/AddOns/PizzaSlices
 
 Check the [TurtleWoW forum thread](https://forum.turtle-wow.org/viewtopic.php?f=18&t=19173) or [commit history](https://github.com/Pizzahawaiii/PizzaSlices/commits/main) to see the latest changes.
 
+## Test
+
+LOL
+
 ## Features
 
 PizzaSlices lets you create custom rings, fill them with various types of actions and bind them to different keys. It doesn't reuse any of your existing action buttons so you won't lose any of that precious action bar space.
@@ -101,10 +105,6 @@ On the 'Rings' tab, click on the green + or on the name of one of the existing r
 
 To remove an item from a ring, simply drag & drop it into the red trash can area that appears when you start dragging it away from the ring section (purple background).
 <br clear="left"/>
-
-## Test
-
-LOL
 
 ## Missing Feature? Bug?
 
