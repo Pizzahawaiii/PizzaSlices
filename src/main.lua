@@ -161,7 +161,7 @@ local actions = {
         if CursorHasItem() then
           local link = GetContainerItemLink(bag, slot)
           if link then
-            name = string.match(link, '%[(.+)%]')
+            local _, _, name = string.find(link, '%[(.+)%]')
             if name then
               UseItemByName(name)
             end
