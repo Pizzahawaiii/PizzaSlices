@@ -89,6 +89,10 @@ Mounts
 
 Then creating a macro with `/ps open 1` would open the Raid Marks, `/ps open 2` would open the General ring, and `/ps open 3` would open the Mounts ring.
 
+> [!WARNING]
+>
+> Opening rings through macros is currently not supported if you have the addon Bongos installed.
+
 > [!NOTE]
 > 
 > This feature requires your action buttons to trigger on keydown, not on keyup (which is the game's default). PizzaSlices therefore comes with its own version of [Snowfall](https://github.com/Linae-Kronos/Classic-Snowfall). Note that if you're using pfUI, PizzaSlices forces your "Trigger Actions on Key Down" pfUI action bar setting to always be enabled.
